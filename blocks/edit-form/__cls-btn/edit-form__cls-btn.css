@@ -1,0 +1,16 @@
+.edit-form__cls-btn {
+  background-image: url(../../../images/Close_Icon.svg);
+  width: 32px;
+  height: 32px;
+  border: none;
+  background-color: transparent;
+  padding: 0;
+  position: absolute;
+  right: -40px;
+  top: -40px;
+}
+
+.edit-form__cls-btn:hover {
+  opacity: 0.6;
+  cursor: url(../../../images/cursor.svg), auto;
+}

@@ -7,3 +7,8 @@
   background-color: transparent;
   border: none;
 }
+
+.like:hover {
+  opacity: 0.5;
+  cursor: url(../../../images/cursor.svg), auto;
+}
