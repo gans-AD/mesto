@@ -2,6 +2,7 @@
   background-image: url(../../../images/Close_Icon.svg);
   width: 32px;
   height: 32px;
+  background-size: contain;
   border: none;
   background-color: transparent;
   padding: 0;
@@ -13,4 +14,14 @@
 .edit-profile__cls-btn:hover {
   opacity: 0.6;
   cursor: url(../../../images/cursor.svg), auto;
+}
+
+@media screen and (max-width: 540px) {
+  .edit-profile__cls-btn {
+    width: 20px;
+    height: 20px;
+    right: 0;
+    top: -36px
+
+  }
 }

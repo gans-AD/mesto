@@ -3,11 +3,20 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 430px;
-  height: 330px;
+  width: calc(100vw - 38px);
+  max-width: 430px;
   background-color: #ffffff;
   border-radius: 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: space-between;
+  padding: 34px 36px 37px;
+  box-sizing: border-box;
+}
+
+@media screen and (max-width: 540px) {
+  .edit-profile {
+    padding: 25px 22px;
+  }
 }
