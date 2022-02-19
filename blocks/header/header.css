@@ -4,3 +4,9 @@
   border-bottom: solid #545454 1px;
   margin: 0 auto;
 }
+
+@media screen and (max-width: 430px) {
+  .header{
+
+  }
+}

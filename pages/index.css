@@ -22,15 +22,18 @@
 @import url(../blocks/place/__info/place__info.css);
 @import url(../blocks/place/__title/place__title.css);
 @import url(../blocks/like/like.css);
+@import url(../blocks/like/_activated/like_activated.css);
 
-@import url(../blocks/edit-popup/edit-popup.css);
-@import url(../blocks/edit-popup/edit-popup_hidden.css);
-@import url(../blocks/edit-form/edit-form.css);
-@import url(../blocks/edit-form/__title/edit-form__title.css);
-@import url(../blocks/edit-form/__name/edit-form__name.css);
-@import url(../blocks/edit-form/__activity/edit-form__activity.css);
-@import url(../blocks/edit-form/__save-btn/edit-form__save-btn.css);
-@import url(../blocks/edit-form/__cls-btn/edit-form__cls-btn.css);
+@import url(../blocks/popup/popup.css);
+@import url(../blocks/popup/_opened/popup_opened.css);
+@import url(../blocks/edit-profile/edit-profile.css);
+@import url(../blocks/edit-profile/__title/edit-profile__title.css);
+@import url(../blocks/edit-profile/__save-btn/edit-profile__save-btn.css);
+@import url(../blocks/edit-profile/__cls-btn/edit-profile__cls-btn.css);
+@import url(../blocks/edit-profile/__field/edit__field.css);
+@import url(../blocks/edit-profile/__field/_name/edit__field_name.css);
+@import url(../blocks/edit-profile/__field/_activity/edit__field_activity.css);
+
 
 @import url(../blocks/footer/footer.css);
 @import url(../blocks/footer/__copyright/footer__copyright.css);
