@@ -30,9 +30,9 @@
 @import url(../blocks/edit-profile/__title/edit-profile__title.css);
 @import url(../blocks/edit-profile/__save-btn/edit-profile__save-btn.css);
 @import url(../blocks/edit-profile/__cls-btn/edit-profile__cls-btn.css);
-@import url(../blocks/edit-profile/__field/edit__field.css);
-@import url(../blocks/edit-profile/__field/_name/edit__field_name.css);
-@import url(../blocks/edit-profile/__field/_activity/edit__field_activity.css);
+@import url(../blocks/edit-profile/__field/edit-profile__field.css);
+@import url(../blocks/edit-profile/__field/_name/edit-profile__field_name.css);
+@import url(../blocks/edit-profile/__field/_activity/edit-profile__field_activity.css);
 
 
 @import url(../blocks/footer/footer.css);

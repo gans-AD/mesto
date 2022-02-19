@@ -2,8 +2,8 @@ const popupElement = document.querySelector('.popup'); // popup редактир
 const popupOpenButtonElement = document.querySelector('.profile__edit-button'); // кнопка редактирования
 const popupCloseButtonElement = document.querySelector('.edit-profile__cls-btn'); //кнопка закрытия окна редактировани
 const popupSaveButtonElement = document.querySelector('.edit-profile__save-btn'); // кнопка сохранить
-const editPopupNameElement = document.querySelector('.edit__field_name'); //имя пользователя в попапе
-const editPopupActivity = document.querySelector('.edit__field_activity'); //род занятий пользователя в попапе
+const editPopupNameElement = document.querySelector('.edit-profile__field_name'); //имя пользователя в попапе
+const editPopupActivity = document.querySelector('.edit-profile__field_activity'); //род занятий пользователя в попапе
 const profileName = document.querySelector('.profile__name'); //имя пользователя в профиле на странице
 const profileActivity = document.querySelector('.profile__activity'); //род занятий пользователя в профиле на странице
 
