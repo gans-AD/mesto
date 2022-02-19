@@ -1,11 +1,12 @@
 .like {
-  width: 22px;
+  min-width: 22px;
   height: 19px;
   background-image: url(../../images/like_disabled.svg);
   background-repeat: no-repeat;
   padding: 0;
   background-color: transparent;
   border: none;
+  margin-right: 20px;
 }
 
 .like:hover {
