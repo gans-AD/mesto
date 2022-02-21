@@ -7,17 +7,10 @@ const editPopupActivity = document.querySelector('.edit-profile__field_activity'
 const profileName = document.querySelector('.profile__name'); //имя пользователя в профиле на странице
 const profileActivity = document.querySelector('.profile__activity'); //род занятий пользователя в профиле на странице
 
-//открывание окошка редактирования профиля
-const openPopup = function () {
-  popupElement.classList.add('popup_opened');
+//открывание(закрывание) окошка редактирования профиля
+const togglePopup = function () {
+  popupElement.classList.toggle('popup_opened');
   fillPopup();
-  console.log('open');
-};
-
-//закрывание окошка редактирования профиля
-const closePopup = function () {
-  popupElement.classList.remove('popup_opened');
-  console.log('close');
 };
 
 //заполнение popup данными
@@ -31,10 +24,10 @@ const save = function (evt) {
   evt.preventDefault();
   profileName.innerText = editPopupNameElement.value;
   profileActivity.innerText = editPopupActivity.value;
-  closePopup();
+  togglePopup();
 };
 
 //обработчики событий
-popupOpenButtonElement.addEventListener('click', openPopup);
-popupCloseButtonElement.addEventListener('click', closePopup);
+popupOpenButtonElement.addEventListener('click', togglePopup);
+popupCloseButtonElement.addEventListener('click', togglePopup);
 popupElement.addEventListener('submit', save);

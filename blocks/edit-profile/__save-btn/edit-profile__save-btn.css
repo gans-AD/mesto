@@ -13,7 +13,7 @@
 
 .edit-profile__save-btn:hover {
   opacity: 0.8;
-  cursor: url(../../../images/cursor.svg), auto;
+  cursor: pointer;
 }
 
 @media screen and (max-width: 540px) {

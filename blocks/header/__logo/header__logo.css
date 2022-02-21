@@ -6,6 +6,12 @@
   background-size: contain;
 }
 
+@media screen and (max-width: 880px) {
+  .header__logo {
+    margin-left: 27px;
+  }
+}
+
 @media screen and (max-width: 430px) {
   .header__logo {
     width: 104px;

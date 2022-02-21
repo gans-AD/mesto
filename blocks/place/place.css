@@ -1,7 +1,7 @@
 .place {
   background-color: #FFFFFF;
   border-radius: 10px;
-  overflow: hidden;
+  overflow: hidden; /*скругление фото сверху, вместо border-radius в place__photo*/
   display: flex;
   flex-direction: column;
 }
