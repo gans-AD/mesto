@@ -18,16 +18,16 @@
           <div class="profile__avatar"></div>
           <div class="profile__info">
             <div>
-              <p class="profile__name">Жак-Ив Кусто</p>
-              <button class="profile__edit-button"></button>
+              <h1 class="profile__name">Жак-Ив Кусто</h1>
+              <button type="button" class="profile__edit-button"></button>
             </div>
             <p class="profile__activity">Исследователь океана</p>
           </div>
-          <button class="profile__add-button"></button>
+          <button type="button" class="profile__add-button"></button>
         </section>
 
         <section class="places" aria-label="места пользователя">
-          <div class="place">
+          <article class="place">
             <img
               src="./images/sasiq.jpg"
               alt="озеро Сасык-Сиваш. Крым"
@@ -35,11 +35,11 @@
             />
             <div class="place__info">
               <h2 class="place__title">Озеро Сасык-Сиваш</h2>
-              <button class="like"></button>
+              <button type="button" class="like"></button>
             </div>
-          </div>
+          </article>
 
-          <div class="place">
+          <article class="place">
             <img
               src="./images/white_rock.jpg"
               alt="Белая скала. Крым"
@@ -47,11 +47,11 @@
             />
             <div class="place__info">
               <h2 class="place__title">Белая скала</h2>
-              <button class="like"></button>
+              <button type="button" class="like"></button>
             </div>
-          </div>
+          </article>
 
-          <div class="place">
+          <article class="place">
             <img
               src="./images/sevastopol.jpg"
               alt="Севастополь. Памятник затопленным кораблям"
@@ -59,11 +59,11 @@
             />
             <div class="place__info">
               <h2 class="place__title">Севастополь</h2>
-              <button class="like"></button>
+              <button type="button" class="like"></button>
             </div>
-          </div>
+          </article>
 
-          <div class="place">
+          <article class="place">
             <img
               src="./images/kacha.jpg"
               alt="Пляж немецкая балка. Кача"
@@ -71,11 +71,11 @@
             />
             <div class="place__info">
               <h2 class="place__title">Кача</h2>
-              <button class="like"></button>
+              <button type="button" class="like"></button>
             </div>
-          </div>
+          </article>
 
-          <div class="place">
+          <article class="place">
             <img
               src="./images/Jur-jur.jpg"
               alt="водопад Джур-Джур"
@@ -83,11 +83,11 @@
             />
             <div class="place__info">
               <h2 class="place__title">Водопад Джур-Джур</h2>
-              <button class="like"></button>
+              <button type="button" class="like"></button>
             </div>
-          </div>
+          </article>
 
-          <div class="place">
+          <article class="place">
             <img
               src="./images/black-river.jpg"
               alt="пороги реки Черная"
@@ -95,25 +95,35 @@
             />
             <div class="place__info">
               <h2 class="place__title">река Черная</h2>
-              <button class="like"></button>
+              <button type="button" class="like"></button>
             </div>
-          </div>
+          </article>
         </section>
       </main>
 
       <footer class="footer">
-        <p class="footer__copyright">© 2020 Mesto Russia</p>
+        <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
       </footer>
 
-      <section class="popup">
-        <form class="edit-profile">
-          <p class="edit-profile__title">Редактировать профиль</p>
-          <input type="text" placeholder="Имя" class="edit-profile__field edit-profile__field_name">
-          <input type="text" placeholder="О себе" class="edit-profile__field edit-profile__field_activity">
-          <button type="submit" class="edit-profile__save-btn">Сохранить</button>
-          <button class="edit-profile__cls-btn"></button>
+      <div class="popup">
+        <form name="profile-data" class="edit-profile">
+          <h3 class="edit-profile__title">Редактировать профиль</h3>
+          <input
+            type="text"
+            placeholder="Имя"
+            class="edit-profile__field edit-profile__field_name"
+          />
+          <input
+            type="text"
+            placeholder="О себе"
+            class="edit-profile__field edit-profile__field_activity"
+          />
+          <button type="submit" class="edit-profile__save-btn">
+            Сохранить
+          </button>
+          <button type="button" class="edit-profile__cls-btn"></button>
         </form>
-      </section>
+      </div>
     </div>
 
     <script src="./scripts/index.js"></script>
