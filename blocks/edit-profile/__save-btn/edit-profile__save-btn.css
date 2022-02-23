@@ -9,11 +9,12 @@
   border-radius: 2px;
   margin-top: 48px;
   padding: 0;
+  cursor: pointer;
+  transition: all 0.3s;
 }
 
 .edit-profile__save-btn:hover {
   opacity: 0.8;
-  cursor: pointer;
 }
 
 @media screen and (max-width: 540px) {

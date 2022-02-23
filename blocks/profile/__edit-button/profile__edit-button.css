@@ -7,21 +7,20 @@
   background-repeat: no-repeat;
   background-position: center;
   padding: 0;
-  position: absolute;
-  right: -42px;
-  top: 16px;
+  align-self: end;
+  margin-bottom: 7px;
+  cursor: pointer;
+  transition: all 0.3s;
 }
 
 .profile__edit-button:hover {
   opacity: 0.6;
-  cursor: pointer;
 }
 
 @media screen and (max-width: 768px) {
   .profile__edit-button {
     width: 18px;
     height: 18px;
-    right: -28px;
-    top: 9px;
+    margin-bottom: 6px;
   }
 }
