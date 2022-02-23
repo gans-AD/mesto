@@ -2,6 +2,7 @@
   width: 142px;
   background-image: url(../../../images/header_logo.svg);
   background-repeat: no-repeat;
+  background-size: contain;
 }
 
 @media screen and (max-width: 880px) {
