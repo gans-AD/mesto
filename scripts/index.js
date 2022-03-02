@@ -6,6 +6,7 @@ const editPopupNameElement = document.querySelector('.edit-profile__field_name')
 const editPopupActivity = document.querySelector('.edit-profile__field_activity'); //род занятий пользователя в попапе
 const profileName = document.querySelector('.profile__name'); //имя пользователя в профиле на странице
 const profileActivity = document.querySelector('.profile__activity'); //род занятий пользователя в профиле на странице
+const placesElement = document.querySelector('.places');
 
 //открывание(закрывание) окошка редактирования профиля
 const togglePopup = function () {
@@ -27,7 +28,15 @@ const save = function (evt) {
   togglePopup();
 };
 
+
 //обработчики событий
 popupOpenButtonElement.addEventListener('click', togglePopup);
 popupCloseButtonElement.addEventListener('click', togglePopup);
 popupElement.addEventListener('submit', save);
+
+//кнопка like
+placesElement.addEventListener('click', (evt) => {
+  const eventTarget = evt.target;
+  eventTarget.classList.toggle('like_activated');
+});
+
