@@ -50,6 +50,11 @@
                 aria-label="кнопка нравиться"
               ></button>
             </div>
+            <button
+                type="button"
+                class="trash"
+                aria-label="кнопка удалить"
+              ></button>
           </article>
 
           <article class="place">
@@ -139,30 +144,57 @@
       </footer>
 
       <div class="popup">
-        <form name="profile-data" class="edit-profile">
-          <h3 class="edit-profile__title">Редактировать профиль</h3>
+        <form name="profile-data" class="form form_edit-profile">
+          <h3 class="form__title">Редактировать профиль</h3>
           <input
             name="profile-name"
             type="text"
             placeholder="Имя"
-            class="edit-profile__field edit-profile__field_name"
+            class="form__field form__field_name"
           />
           <input
             name="profile-activity"
             type="text"
             placeholder="О себе"
-            class="edit-profile__field edit-profile__field_activity"
+            class="form__field form__field_activity"
           />
-          <button type="submit" class="edit-profile__save-btn">
+          <button type="submit" class="form__save-btn">
             Сохранить
           </button>
           <button
             type="button"
-            class="edit-profile__cls-btn"
+            class="form__cls-btn"
             aria-label="кнопка закрыть"
           ></button>
         </form>
       </div>
+
+      <div class="popup">
+        <form name="location" class="form form_new-location">
+          <h3 class="form__title">Новое место</h3>
+          <input
+            name="location-name"
+            type="text"
+            placeholder="Название"
+            class="form__field form__field_location-name"
+          />
+          <input
+            name="location-url"
+            type="url"
+            placeholder="Ссылка на картинку"
+            class="form__field form__field_location-url"
+          />
+          <button type="submit" class="form__save-btn">
+            Создать
+          </button>
+          <button
+            type="button"
+            class="form__cls-btn"
+            aria-label="кнопка закрыть"
+          ></button>
+        </form>
+      </div>
+
     </div>
 
     <script src="./scripts/index.js"></script>

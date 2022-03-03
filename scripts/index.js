@@ -1,9 +1,9 @@
 const popupElement = document.querySelector('.popup'); // popup редактирования профиля
 const popupOpenButtonElement = document.querySelector('.profile__edit-button'); // кнопка редактирования
-const popupCloseButtonElement = document.querySelector('.edit-profile__cls-btn'); //кнопка закрытия окна редактировани
-const popupSaveButtonElement = document.querySelector('.edit-profile__save-btn'); // кнопка сохранить
-const editPopupNameElement = document.querySelector('.edit-profile__field_name'); //имя пользователя в попапе
-const editPopupActivity = document.querySelector('.edit-profile__field_activity'); //род занятий пользователя в попапе
+const popupCloseButtonElement = document.querySelector('.form__cls-btn'); //кнопка закрытия окна редактировани
+const popupSaveButtonElement = document.querySelector('.form__save-btn'); // кнопка сохранить
+const editPopupNameElement = document.querySelector('.form__field_name'); //имя пользователя в попапе
+const editPopupActivity = document.querySelector('.form__field_activity'); //род занятий пользователя в попапе
 const profileName = document.querySelector('.profile__name'); //имя пользователя в профиле на странице
 const profileActivity = document.querySelector('.profile__activity'); //род занятий пользователя в профиле на странице
 const placesElement = document.querySelector('.places');

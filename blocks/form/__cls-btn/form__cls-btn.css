@@ -1,4 +1,4 @@
-.edit-profile__cls-btn {
+.form__cls-btn {
   background-image: url(../../../images/Close_Icon.svg);
   width: 32px;
   height: 32px;
@@ -13,12 +13,12 @@
   transition: all 0.3s;
 }
 
-.edit-profile__cls-btn:hover {
+.form__cls-btn:hover {
   opacity: 0.6;
 }
 
 @media screen and (max-width: 540px) {
-  .edit-profile__cls-btn {
+  .form__cls-btn {
     width: 20px;
     height: 20px;
     right: 19px;

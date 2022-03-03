@@ -4,4 +4,5 @@
   overflow: hidden; /*скругление фото сверху, вместо border-radius в place__photo*/
   display: flex;
   flex-direction: column;
+  position: relative;
 }

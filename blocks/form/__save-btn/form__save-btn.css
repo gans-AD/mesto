@@ -1,4 +1,4 @@
-.edit-profile__save-btn {
+.form__save-btn {
   width: 100%;
   height: 50px;
   background-color: #000000;
@@ -13,12 +13,12 @@
   transition: all 0.3s;
 }
 
-.edit-profile__save-btn:hover {
+.form__save-btn:hover {
   opacity: 0.8;
 }
 
 @media screen and (max-width: 540px) {
-  .edit-profile__save-btn {
+  .form__save-btn {
     font-size: 14px;
     line-height: 17px;
     margin-top: 45px;

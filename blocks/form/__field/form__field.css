@@ -1,4 +1,4 @@
-.edit-profile__field {
+.form__field {
   width: 100%;
   height: 27px;
   margin: 0 auto;
@@ -11,6 +11,6 @@
   box-sizing: border-box;
 }
 
-.edit-profile__field:nth-child(3) {
+.form__field:nth-child(3) {
   margin-top: 30px;
 }
