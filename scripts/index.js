@@ -1,5 +1,8 @@
-const popupElement = document.querySelector('.popup'); // popup редактирования профиля
-const popupOpenButtonElement = document.querySelector('.profile__edit-button'); // кнопка редактирования
+const popupElement = document.querySelectorAll('.popup'); // popup
+const popupEditProfile = document.querySelector('.form_edit-profile').parentElement;
+const popupNewLocation = document.querySelector('.form_new-location').parentElement;
+const editButtonElement = document.querySelector('.profile__edit-button'); // кнопка редактирования
+const addButtonElement = document.querySelector('.profile__add-button');
 const popupCloseButtonElement = document.querySelector('.form__cls-btn'); //кнопка закрытия окна редактировани
 const popupSaveButtonElement = document.querySelector('.form__save-btn'); // кнопка сохранить
 const editPopupNameElement = document.querySelector('.form__field_name'); //имя пользователя в попапе
@@ -9,8 +12,8 @@ const profileActivity = document.querySelector('.profile__activity'); //род �
 const placesElement = document.querySelector('.places');
 
 //открывание(закрывание) окошка редактирования профиля
-const togglePopup = function () {
-  popupElement.classList.toggle('popup_opened');
+const togglePopup = function (element) {
+  element.classList.toggle('popup_opened');
   fillPopup();
 };
 
@@ -28,11 +31,25 @@ const save = function (evt) {
   togglePopup();
 };
 
+//открытие popup редактирования профиля
+editButtonElement.addEventListener('click', () => {
+  togglePopup(popupEditProfile);
+});
 
-//обработчики событий
-popupOpenButtonElement.addEventListener('click', togglePopup);
-popupCloseButtonElement.addEventListener('click', togglePopup);
-popupElement.addEventListener('submit', save);
+//отрытие popup добавления фотографии
+addButtonElement.addEventListener('click', () => {
+  togglePopup(popupNewLocation);
+})
+
+//кнопка закрыть
+popupElement.forEach(element => {
+  element.addEventListener('click', (evt) => {
+    const eventTarget = evt.target;
+    togglePopup(eventTarget.parentElement.parentElement);
+  });
+});
+
+popupEditProfile.addEventListener('submit', save);
 
 //кнопка like
 placesElement.addEventListener('click', (evt) => {
