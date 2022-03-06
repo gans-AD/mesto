@@ -44,11 +44,11 @@ addButtonElement.addEventListener('click', () => {
 //кнопка закрыть
 popupElement.forEach(element => {
   element.addEventListener('click', (evt) => {
-    const eventTarget = evt.target;
-    togglePopup(eventTarget.parentElement.parentElement);
+    togglePopup(evt.target.closest('.popup'));
   });
 });
 
+//кнопка сохранить
 popupEditProfile.addEventListener('submit', save);
 
 //кнопка like
