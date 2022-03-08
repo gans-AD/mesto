@@ -54,7 +54,7 @@ function addPlace(item) {
   placePhoto.src = item.link;
   placePhoto.alt = item.name;
 
-  placesElement.appendChild(placeElement);
+  placesElement.prepend(placeElement);
 }
 
 function addPlaces(items) {
