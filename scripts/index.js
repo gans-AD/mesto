@@ -1,15 +1,59 @@
-const popupElement = document.querySelectorAll('.popup'); // popup
 const popupEditProfile = document.querySelector('.form_edit-profile').parentElement;
 const popupNewLocation = document.querySelector('.form_new-location').parentElement;
 const editButtonElement = document.querySelector('.profile__edit-button'); // кнопка редактирования
 const addButtonElement = document.querySelector('.profile__add-button');
-const popupCloseButtonElement = document.querySelector('.form__cls-btn'); //кнопка закрытия окна редактировани
+const popupCloseButtonElements = document.querySelectorAll('.form__cls-btn'); //кнопка закрытия окна редактировани
 const popupSaveButtonElement = document.querySelector('.form__save-btn'); // кнопка сохранить
 const editPopupNameElement = document.querySelector('.form__field_name'); //имя пользователя в попапе
 const editPopupActivity = document.querySelector('.form__field_activity'); //род занятий пользователя в попапе
+const addLocationNameInput = document.querySelector('.form__field_location-name'); //название места, для добавления карточки
+const addLocationLinkInput = document.querySelector('.form__field_location-url'); // ссылка на фото,  для добавления карточки
 const profileName = document.querySelector('.profile__name'); //имя пользователя в профиле на странице
 const profileActivity = document.querySelector('.profile__activity'); //род занятий пользователя в профиле на странице
 const placesElement = document.querySelector('.places');
+const placeTemplate = document.querySelector('.place-template');//template карточки с местом
+const initialCards = [
+  {
+    name: 'Архыз',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
+  },
+  {
+    name: 'Челябинская область',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
+  },
+  {
+    name: 'Иваново',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
+  },
+  {
+    name: 'Камчатка',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
+  },
+  {
+    name: 'Холмогорский район',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
+  },
+  {
+    name: 'Байкал',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
+  }
+];
+
+function addPlace(item) {
+  const placeElement = placeTemplate.content.cloneNode(true);
+  const placePhoto = placeElement.querySelector('.place__photo');
+  const placeTitle = placeElement.querySelector('.place__title');
+
+  placeTitle.textContent = item.name;
+  placePhoto.src = item.link;
+  placePhoto.alt = item.name;
+
+  placesElement.appendChild(placeElement);
+}
+
+function addPlaces (items) {
+  items.forEach(addPlace);
+}
 
 //открывание(закрывание) окошка редактирования профиля
 const togglePopup = function (element) {
@@ -17,7 +61,7 @@ const togglePopup = function (element) {
   fillPopup();
 };
 
-//заполнение popup данными
+//заполнение popup редактирования профиля данными
 const fillPopup = function () {
   editPopupNameElement.value = profileName.innerText;
   editPopupActivity.value = profileActivity.innerText;
@@ -28,7 +72,7 @@ const save = function (evt) {
   evt.preventDefault();
   profileName.innerText = editPopupNameElement.value;
   profileActivity.innerText = editPopupActivity.value;
-  togglePopup();
+  togglePopup(popupEditProfile);
 };
 
 //открытие popup редактирования профиля
@@ -42,7 +86,7 @@ addButtonElement.addEventListener('click', () => {
 })
 
 //кнопка закрыть
-popupElement.forEach(element => {
+popupCloseButtonElements.forEach(element => {
   element.addEventListener('click', (evt) => {
     togglePopup(evt.target.closest('.popup'));
   });
@@ -51,9 +95,22 @@ popupElement.forEach(element => {
 //кнопка сохранить
 popupEditProfile.addEventListener('submit', save);
 
+//добавление новой карточки
+popupNewLocation.addEventListener('submit', (evt) => {
+  evt.preventDefault();
+  const newLocationObj = {};
+  newLocationObj.name = addLocationNameInput.value;
+  newLocationObj.link = addLocationLinkInput.value;
+  addPlace(newLocationObj);
+  togglePopup(popupNewLocation);
+  addLocationNameInput.value = "";
+  addLocationLinkInput.value = '';
+});
+
 //кнопка like
 placesElement.addEventListener('click', (evt) => {
   const eventTarget = evt.target;
   eventTarget.classList.toggle('like_activated');
 });
 
+addPlaces(initialCards);

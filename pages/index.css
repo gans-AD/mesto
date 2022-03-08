@@ -18,6 +18,7 @@
 
 @import url(../blocks/places/places.css);
 @import url(../blocks/place/place.css);
+@import url(../blocks/place/__photo-container/place__photo-container.css);
 @import url(../blocks/place/__photo/place__photo.css);
 @import url(../blocks/place/__info/place__info.css);
 @import url(../blocks/place/__title/place__title.css);

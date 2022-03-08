@@ -1,0 +1,8 @@
+.place__photo-container {
+  position: relative;
+  content: '';
+  width: 100%;
+  padding-top: 100%; /*задаем пропорцию ВхШ для фото 1:1 */
+}
+
+
