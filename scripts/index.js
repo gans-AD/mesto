@@ -58,6 +58,17 @@ function addPlaces(items) {
   items.forEach(addPlace);
 }
 
+function addNewLocation (evt) {
+  evt.preventDefault();
+  const newLocationObj = {};
+  newLocationObj.name = addLocationNameInput.value;
+  newLocationObj.link = addLocationLinkInput.value;
+  addPlace(newLocationObj);
+  togglePopup(popupNewLocation);
+  addLocationNameInput.value = "";
+  addLocationLinkInput.value = "";
+}
+
 //открывание(закрывание) окошка редактирования профиля
 const togglePopup = function (element) {
   element.classList.toggle("popup_opened");
@@ -97,17 +108,17 @@ popupCloseButtonElements.forEach((element) => {
 
 //кнопка сохранить
 popupEditProfile.addEventListener("submit", save);
-
+popupEditProfile.addEventListener("keydown", (evt) => {
+  if (evt.key === "Enter") {
+    save();
+  }
+});
 //добавление новой карточки
-popupNewLocation.addEventListener("submit", (evt) => {
-  evt.preventDefault();
-  const newLocationObj = {};
-  newLocationObj.name = addLocationNameInput.value;
-  newLocationObj.link = addLocationLinkInput.value;
-  addPlace(newLocationObj);
-  togglePopup(popupNewLocation);
-  addLocationNameInput.value = "";
-  addLocationLinkInput.value = "";
+popupNewLocation.addEventListener("submit", addNewLocation);
+popupNewLocation.addEventListener("keydown", (evt) => {
+  if (evt.key === "Enter") {
+    addNewLocation();
+  }
 });
 
 //кнопка like
