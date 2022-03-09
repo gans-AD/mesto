@@ -1,7 +1,7 @@
-const popupEditProfile = document.querySelector(".form_edit-profile").parentElement;
-const popupNewLocation = document.querySelector(".form_new-location").parentElement;
-const popupImage = document.querySelector(".image-popup").parentElement;
-const editButtonElement = document.querySelector(".profile__edit-button"); // кнопка редактирования
+const popupEditProfile = document.querySelector(".popup_edit");
+const popupNewLocation = document.querySelector(".popup_location");
+const popupImage = document.querySelector(".popup_image");
+const buttonEditElement = document.querySelector(".profile__edit-button"); // кнопка редактирования
 const addButtonElement = document.querySelector(".profile__add-button");
 const popupCloseButtonElements = document.querySelectorAll(".close-btn"); //кнопки закрытия popup
 const popupSaveButtonElement = document.querySelector(".form__save-btn"); // кнопка сохранить
@@ -77,20 +77,20 @@ const togglePopup = function (element) {
 
 //заполнение popup редактирования профиля данными
 const fillPopup = function () {
-  editPopupNameElement.value = profileName.innerText;
-  editPopupActivity.value = profileActivity.innerText;
+  editPopupNameElement.value = profileName.textContent;
+  editPopupActivity.value = profileActivity.textContent;
 };
 
 //кнопка сохранить
 const save = function (evt) {
   evt.preventDefault();
-  profileName.innerText = editPopupNameElement.value;
-  profileActivity.innerText = editPopupActivity.value;
+  profileName.textContent = editPopupNameElement.value;
+  profileActivity.textContent = editPopupActivity.value;
   togglePopup(popupEditProfile);
 };
 
 //открытие popup редактирования профиля
-editButtonElement.addEventListener("click", () => {
+buttonEditElement.addEventListener("click", () => {
   togglePopup(popupEditProfile);
 });
 
