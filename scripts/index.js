@@ -7,6 +7,7 @@ const popupCloseButtonElements = document.querySelectorAll(".close-btn"); //кн
 const popupSaveButtonElement = document.querySelector(".form__save-btn"); // кнопка сохранить
 const popupEditNameElement = document.querySelector(".form__field_name"); //имя пользователя в попапе
 const popupEditActivity = document.querySelector(".form__field_activity"); //род занятий пользователя в попапе
+const formLocation = document.forms.location;
 const locationAddNameInput = document.querySelector(".form__field_location-name"); //название места, для добавления карточки
 const locationAddLinkInput = document.querySelector(".form__field_location-url"); // ссылка на фото,  для добавления карточки
 const profileName = document.querySelector(".profile__name"); //имя пользователя в профиле на странице
@@ -54,6 +55,15 @@ function createCard(item) {
   placePhoto.src = item.link;
   placePhoto.alt = item.name;
 
+  //открытие popup просмотра фото
+  function openPhotoPopup () {
+    photoZoomable.src = placePhoto.src;
+    photoZoomable.alt = placePhoto.alt;
+    photoZoomableTitle.textContent = placeTitle.textContent;
+
+    openPopup(popupImage);
+  }
+
   //кнопка like
   buttonLike.addEventListener("click", () => {
     buttonLike.classList.toggle("like_activated");
@@ -63,6 +73,9 @@ function createCard(item) {
   buttonTrash.addEventListener("click", (evt) => {
     buttonTrash.closest(".place").remove();
   });
+
+  //открытие popup просмотра фото
+  placePhoto.addEventListener("click", openPhotoPopup);
 
   return placeElement;
 }
@@ -84,9 +97,7 @@ function addNewCard(evt) {
   objectNewLocation.name = locationAddNameInput.value;
   objectNewLocation.link = locationAddLinkInput.value;
   addCard(objectNewLocation);
-  openPopup(popupNewLocation);
-  locationAddNameInput.value = "";
-  locationAddLinkInput.value = "";
+  formLocation.reset();
   closePopup(popupNewLocation);
 }
 
@@ -106,21 +117,6 @@ function openProfilePopup () {
   popupEditActivity.value = profileActivity.textContent;
   openPopup(popupEditProfile);
 };
-
-//открытие popup просмотра фото
-function openPhotoPopup (evt) {
-  const eventTarget = evt.target;
-  if (eventTarget.classList.contains("place__photo")) {
-    const parentElement = eventTarget.closest(".place");
-    const parentTitle = parentElement.querySelector(".place__title").textContent;
-
-    photoZoomable.src = eventTarget.src;
-    photoZoomable.alt = eventTarget.alt;
-    photoZoomableTitle.textContent = parentTitle;
-
-    openPopup(popupImage);
-  }
-}
 
 //кнопка сохранить
 function save (evt) {
@@ -154,7 +150,6 @@ popupEditProfile.addEventListener("submit", save);
 //добавление новой карточки
 popupNewLocation.addEventListener("submit", addNewCard);
 
-//открытие popup просмотра фото
-placesElement.addEventListener("click", openPhotoPopup);
 // -------------------------------------
+
 downloadCards(initialCards);
