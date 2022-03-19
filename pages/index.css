@@ -36,11 +36,12 @@
 @import url(../blocks/form/_new-location/form_new-location.css);
 @import url(../blocks/form/__title/form__title.css);
 @import url(../blocks/form/__save-btn/form__save-btn.css);
-@import url(../blocks/form/__field/form__field.css);
-@import url(../blocks/form/__field/_name/form__field_name.css);
-@import url(../blocks/form/__field/_activity/form__field_activity.css);
-@import url(../blocks/form/__field/_location-name/form__field_location-name.css);
-@import url(../blocks/form/__field/_location-url/form__field_location-url.css);
+@import url(../blocks/form/__input/form__input.css);
+@import url(../blocks/form/__input/_name/form__input_name.css);
+@import url(../blocks/form/__input/_activity/form__input_activity.css);
+@import url(../blocks/form/__input/_location-name/form__input_location-name.css);
+@import url(../blocks/form/__input/_location-url/form__input_location-url.css);
+@import url(../blocks/form/__input-error/form__input-error.css);
 
 @import url(../blocks/close-btn/close-btn.css);
 
@@ -51,3 +52,5 @@
 
 @import url(../blocks/footer/footer.css);
 @import url(../blocks/footer/__copyright/footer__copyright.css);
+
+

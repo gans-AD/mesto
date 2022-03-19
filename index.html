@@ -43,20 +43,28 @@
       </footer>
 
       <div class="popup popup_edit">
-        <form name="profile-data" class="form form_edit-profile">
+        <form name="profile" class="form form_edit-profile" novalidate>
           <h3 class="form__title">Редактировать профиль</h3>
           <input
-            name="profile-name"
+            name="name"
             type="text"
             placeholder="Имя"
-            class="form__field form__field_name"
+            class="form__input form__input_name"
+            required
+            minlength="2"
+            maxlength="40"
           />
+          <span class="form__input-error">ошибка</span>
           <input
-            name="profile-activity"
+            name="activity"
             type="text"
             placeholder="О себе"
-            class="form__field form__field_activity"
+            class="form__input form__input_activity"
+            required
+            minlength="2"
+            maxlength="200"
           />
+          <span class="form__input-error">ошибка</span>
           <button type="submit" class="form__save-btn">Сохранить</button>
           <button
             type="button"
@@ -67,19 +75,21 @@
       </div>
 
       <div class="popup popup_location">
-        <form name="location" class="form form_new-location">
+        <form name="location" class="form form_new-location" novalidate>
           <h3 class="form__title">Новое место</h3>
           <input
             name="location-name"
             type="text"
             placeholder="Название"
-            class="form__field form__field_location-name"
+            class="form__input form__input_location-name"
+            required
           />
           <input
             name="location-url"
             type="url"
             placeholder="Ссылка на картинку"
-            class="form__field form__field_location-url"
+            class="form__input form__input_location-url"
+            required
           />
           <button type="submit" class="form__save-btn">Создать</button>
           <button
@@ -125,5 +135,6 @@
     ></template>
 
     <script src="./scripts/index.js"></script>
+    <script src="./scripts/validate.js"></script>
   </body>
 </html>
