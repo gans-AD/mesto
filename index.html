@@ -45,26 +45,31 @@
       <div class="popup popup_edit">
         <form name="profile" class="form form_edit-profile" novalidate>
           <h3 class="form__title">Редактировать профиль</h3>
-          <input
-            name="name"
-            type="text"
-            placeholder="Имя"
-            class="form__input form__input_name"
-            required
-            minlength="2"
-            maxlength="40"
-          />
-          <span class="form__input-error">ошибка</span>
-          <input
-            name="activity"
-            type="text"
-            placeholder="О себе"
-            class="form__input form__input_activity"
-            required
-            minlength="2"
-            maxlength="200"
-          />
-          <span class="form__input-error">ошибка</span>
+          <div class="form__field">
+            <input
+              name="username"
+              type="text"
+              placeholder="Имя"
+              class="form__input form__input_name"
+              required
+              minlength="2"
+              maxlength="40"
+            />
+            <span class="form__input-error username-error">jib,rf</span>
+          </div>
+          <div class="form__field">
+            <input
+              name="activity"
+              type="text"
+              placeholder="О себе"
+              class="form__input form__input_activity"
+              required
+              minlength="2"
+              maxlength="200"
+            />
+            <span class="form__input-error activity-error"></span>
+          </div>
+
           <button type="submit" class="form__save-btn">Сохранить</button>
           <button
             type="button"
@@ -77,20 +82,28 @@
       <div class="popup popup_location">
         <form name="location" class="form form_new-location" novalidate>
           <h3 class="form__title">Новое место</h3>
-          <input
-            name="location-name"
-            type="text"
-            placeholder="Название"
-            class="form__input form__input_location-name"
-            required
-          />
-          <input
-            name="location-url"
-            type="url"
-            placeholder="Ссылка на картинку"
-            class="form__input form__input_location-url"
-            required
-          />
+          <div class="form__field">
+            <input
+              name="location-name"
+              type="text"
+              placeholder="Название"
+              class="form__input form__input_location-name"
+              required
+            />
+            <span class="form__input-error location-name-error"></span>
+          </div>
+
+          <div class="form__field">
+            <input
+              name="location-url"
+              type="url"
+              placeholder="Ссылка на картинку"
+              class="form__input form__input_location-url"
+              required
+            />
+            <span class="form__input-error location-url-error"></span>
+          </div>
+
           <button type="submit" class="form__save-btn">Создать</button>
           <button
             type="button"
