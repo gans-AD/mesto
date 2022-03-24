@@ -3,13 +3,16 @@ const popupNewLocation = document.querySelector(".popup_location");
 const popupImage = document.querySelector(".popup_image");
 const buttonEditElement = document.querySelector(".profile__edit-button"); // кнопка редактирования
 const buttonAddElement = document.querySelector(".profile__add-button");
-const popupCloseButtonElements = document.querySelectorAll(".close-btn"); //кнопки закрытия popup
 const popupSaveButtonElement = document.querySelector(".form__save-btn"); // кнопка сохранить
 const popupEditNameElement = document.querySelector(".form__input_name"); //имя пользователя в попапе
 const popupEditActivity = document.querySelector(".form__input_activity"); //род занятий пользователя в попапе
 const formLocation = document.forms.location;
-const locationAddNameInput = document.querySelector(".form__input_location-name"); //название места, для добавления карточки
-const locationAddLinkInput = document.querySelector(".form__input_location-url"); // ссылка на фото,  для добавления карточки
+const locationAddNameInput = document.querySelector(
+  ".form__input_location-name"
+); //название места, для добавления карточки
+const locationAddLinkInput = document.querySelector(
+  ".form__input_location-url"
+); // ссылка на фото,  для добавления карточки
 const profileName = document.querySelector(".profile__name"); //имя пользователя в профиле на странице
 const profileActivity = document.querySelector(".profile__activity"); //род занятий пользователя в профиле на странице
 const placesElement = document.querySelector(".places");
@@ -56,7 +59,7 @@ function createCard(item) {
   placePhoto.alt = item.name;
 
   //открытие popup просмотра фото
-  function openPhotoPopup () {
+  function openPhotoPopup() {
     photoZoomable.src = placePhoto.src;
     photoZoomable.alt = placePhoto.alt;
     photoZoomableTitle.textContent = placeTitle.textContent;
@@ -102,29 +105,60 @@ function addNewCard(evt) {
 }
 
 //открытие popup
-function openPopup (element) {
+function openPopup(element) {
   element.classList.add("popup_opened");
+  document.addEventListener("keydown", ClosePopupKeyHandler);
 }
 
 //закрытие popup
-function closePopup (element) {
+function closePopup(element) {
   element.classList.remove("popup_opened");
+  document.removeEventListener("keydown", ClosePopupKeyHandler);
+}
+
+//закрытие popup клавишей Esc
+function ClosePopupKeyHandler(evt) {
+  const openPopup = document.querySelector(".popup_opened");
+
+  if (evt.key === "Escape") {
+    closePopup(openPopup);
+  }
 }
 
 //открытие popup редактирования профиля
-function openProfilePopup () {
+function openProfilePopup() {
   popupEditNameElement.value = profileName.textContent;
   popupEditActivity.value = profileActivity.textContent;
   openPopup(popupEditProfile);
-};
+}
 
 //кнопка сохранить
-function save (evt) {
+function save(evt) {
   evt.preventDefault();
   profileName.textContent = popupEditNameElement.value;
   profileActivity.textContent = popupEditActivity.value;
   closePopup(popupEditProfile);
-};
+}
+
+//навешивание обработчиков кнопки закрытия popup
+function closePopupSetListeners() {
+  const popupList = document.querySelectorAll(".popup");
+
+  popupList.forEach((popupElement) => {
+    //закрытие popup кликом мыши
+    popupElement.addEventListener("click", (evt) => {
+      const targetElement = evt.target;
+      const currentTargetElement = evt.currentTarget;
+
+      if (
+        targetElement === currentTargetElement ||
+        targetElement.classList.contains("close-btn")
+      ) {
+        closePopup(popupElement);
+      }
+    });
+  });
+}
 
 //----- обработчики событий -----
 //открытие popup редактирования профиля
@@ -137,13 +171,6 @@ buttonAddElement.addEventListener("click", () => {
   openPopup(popupNewLocation);
 });
 
-//кнопка закрыть
-popupCloseButtonElements.forEach((element) => {
-  element.addEventListener("click", (evt) => {
-    closePopup(evt.target.closest(".popup"));
-  });
-});
-
 //кнопка сохранить
 popupEditProfile.addEventListener("submit", save);
 
@@ -153,3 +180,4 @@ popupNewLocation.addEventListener("submit", addNewCard);
 // -------------------------------------
 
 downloadCards(initialCards);
+closePopupSetListeners();
