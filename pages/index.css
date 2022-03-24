@@ -37,6 +37,7 @@
 @import url(../blocks/form/_new-location/form_new-location.css);
 @import url(../blocks/form/__title/form__title.css);
 @import url(../blocks/form/__save-btn/form__save-btn.css);
+@import url(../blocks/form/__save-btn/_inactive/form__save-btn_inactive.css);
 @import url(../blocks/form/__input/form__input.css);
 @import url(../blocks/form/__input/_name/form__input_name.css);
 @import url(../blocks/form/__input/_activity/form__input_activity.css);

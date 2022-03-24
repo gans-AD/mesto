@@ -17,6 +17,24 @@ function hideInputError(formElement, inputElement) {
 
 };
 
+//проверка наличия невалидного input
+function hasInvalidInput (inputList) {
+  return inputList.some((inputElement) => {
+    return !inputElement.validity.valid;
+  });
+}
+
+//деактивация кнопки отправки формы
+function toggleButtonState(inputList, buttonElement) {
+  if (hasInvalidInput(inputList)) {
+    buttonElement.classList.add("form__save-btn_inactive");
+    buttonElement.disabled = true;
+  } else {
+    buttonElement.classList.remove("form__save-btn_inactive");
+    buttonElement.disabled = false;
+  }
+}
+
 //проверяем валидность формы и показываем/скрываем сообщение об ошибках
 function checkInputValidity(formElement, inputElement) {
   if (!inputElement.validity.valid) {
@@ -28,11 +46,15 @@ function checkInputValidity(formElement, inputElement) {
 
 //навешивание валидаций на все input-ы
 function setInputValidations(formElement) {
-  const inputList = formElement.querySelectorAll(".form__input");
+  const inputList = Array.from(formElement.querySelectorAll(".form__input"));
+  const buttonElement = formElement.querySelector(".form__save-btn");
+
+  toggleButtonState(inputList, buttonElement);
+
   inputList.forEach((inputElement) => {
     inputElement.addEventListener("input", () => {
-
       checkInputValidity(formElement, inputElement);
+      toggleButtonState(inputList, buttonElement);
     });
   });
 };
@@ -41,6 +63,7 @@ function setInputValidations(formElement) {
 function enableValidation() {
   const formList = document.querySelectorAll(".form");
   formList.forEach((formElement) => {
+
     setInputValidations(formElement);
   });
 };
