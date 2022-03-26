@@ -58,15 +58,6 @@ function createCard(item) {
   placePhoto.src = item.link;
   placePhoto.alt = item.name;
 
-  //открытие popup просмотра фото
-  function openPhotoPopup() {
-    photoZoomable.src = placePhoto.src;
-    photoZoomable.alt = placePhoto.alt;
-    photoZoomableTitle.textContent = placeTitle.textContent;
-
-    openPopup(popupImage);
-  }
-
   //кнопка like
   buttonLike.addEventListener("click", () => {
     buttonLike.classList.toggle("like_activated");
@@ -81,6 +72,16 @@ function createCard(item) {
   placePhoto.addEventListener("click", openPhotoPopup);
 
   return placeElement;
+}
+
+//открытие popup просмотра фото
+function openPhotoPopup(evt) {
+  const photoTarget = evt.target;
+  photoZoomable.src = photoTarget.src;
+  photoZoomable.alt = photoTarget.alt;
+  photoZoomableTitle.textContent = photoTarget.textContent;
+
+  openPopup(popupImage);
 }
 
 //добавление новой карточки в разметку
@@ -100,8 +101,9 @@ function addNewCard(evt) {
   objectNewLocation.name = locationAddNameInput.value;
   objectNewLocation.link = locationAddLinkInput.value;
   addCard(objectNewLocation);
-  formLocation.reset();
   closePopup(popupNewLocation);
+  formLocation.reset();
+  enableValidation(selectorsValidation);
 }
 
 //открытие popup
@@ -118,9 +120,8 @@ function closePopup(element) {
 
 //закрытие popup клавишей Esc
 function ClosePopupKeyHandler(evt) {
-  const openPopup = document.querySelector(".popup_opened");
-
   if (evt.key === "Escape") {
+    const openPopup = document.querySelector(".popup_opened");
     closePopup(openPopup);
   }
 }
