@@ -1,3 +1,5 @@
+import {Card} from './Card.js'
+
 const popupEditProfile = document.querySelector(".popup_edit");
 const popupNewLocation = document.querySelector(".popup_location");
 const popupImage = document.querySelector(".popup_image");
@@ -16,7 +18,7 @@ const locationAddLinkInput = document.querySelector(
 const profileName = document.querySelector(".profile__name"); //имя пользователя в профиле на странице
 const profileActivity = document.querySelector(".profile__activity"); //род занятий пользователя в профиле на странице
 const placesElement = document.querySelector(".places");
-const placeTemplate = document.querySelector(".place-template"); //template карточки с местом
+const placeTemplate = ".place-template"; //template карточки с местом
 const photoZoomable = document.querySelector(".image-popup__photo");
 const photoZoomableTitle = document.querySelector(".image-popup__title");
 const initialCards = [
@@ -46,48 +48,11 @@ const initialCards = [
   },
 ];
 
-//создание карточки на основе template элемента
-function createCard(item) {
-  const placeElement = placeTemplate.content.cloneNode(true);
-  const placePhoto = placeElement.querySelector(".place__photo");
-  const placeTitle = placeElement.querySelector(".place__title");
-  const buttonLike = placeElement.querySelector(".like");
-  const buttonTrash = placeElement.querySelector(".trash");
-
-  placeTitle.textContent = item.name;
-  placePhoto.src = item.link;
-  placePhoto.alt = item.name;
-
-  //кнопка like
-  buttonLike.addEventListener("click", () => {
-    buttonLike.classList.toggle("like_activated");
-  });
-
-  //кнопка удаления карточки
-  buttonTrash.addEventListener("click", (evt) => {
-    buttonTrash.closest(".place").remove();
-  });
-
-  //открытие popup просмотра фото
-  placePhoto.addEventListener("click", openPhotoPopup);
-
-  return placeElement;
-}
-
-//открытие popup просмотра фото
-function openPhotoPopup(evt) {
-  const photoTarget = evt.target;
-  photoZoomable.src = photoTarget.src;
-  photoZoomable.alt = photoTarget.alt;
-  photoZoomableTitle.textContent = photoTarget.textContent;
-
-  openPopup(popupImage);
-}
-
 //добавление новой карточки в разметку
 function addCard(item) {
-  const newCard = createCard(item);
-  placesElement.prepend(newCard);
+  const card = new Card(item.name, item.link, placeTemplate);
+  const cardElement = card.createCard();
+  placesElement.prepend(cardElement);
 }
 
 //загрузка начальных карточек из массива
@@ -95,6 +60,7 @@ function downloadCards(items) {
   items.forEach(addCard);
 }
 
+/*
 function addNewCard(evt) {
   evt.preventDefault();
   const objectNewLocation = {};
@@ -104,26 +70,6 @@ function addNewCard(evt) {
   closePopup(popupNewLocation);
   formLocation.reset();
   enableValidation(selectorsValidation);
-}
-
-//открытие popup
-function openPopup(element) {
-  element.classList.add("popup_opened");
-  document.addEventListener("keydown", ClosePopupKeyHandler);
-}
-
-//закрытие popup
-function closePopup(element) {
-  element.classList.remove("popup_opened");
-  document.removeEventListener("keydown", ClosePopupKeyHandler);
-}
-
-//закрытие popup клавишей Esc
-function ClosePopupKeyHandler(evt) {
-  if (evt.key === "Escape") {
-    const openPopup = document.querySelector(".popup_opened");
-    closePopup(openPopup);
-  }
 }
 
 //открытие popup редактирования профиля
@@ -141,25 +87,6 @@ function save(evt) {
   closePopup(popupEditProfile);
 }
 
-//навешивание обработчиков кнопки закрытия popup
-function closePopupSetListeners() {
-  const popupList = document.querySelectorAll(".popup");
-
-  popupList.forEach((popupElement) => {
-    //закрытие popup кликом мыши
-    popupElement.addEventListener("click", (evt) => {
-      const targetElement = evt.target;
-      const currentTargetElement = evt.currentTarget;
-
-      if (
-        targetElement === currentTargetElement ||
-        targetElement.classList.contains("close-btn")
-      ) {
-        closePopup(popupElement);
-      }
-    });
-  });
-}
 
 //----- обработчики событий -----
 //открытие popup редактирования профиля
@@ -177,8 +104,7 @@ popupEditProfile.addEventListener("submit", save);
 
 //добавление новой карточки
 popupNewLocation.addEventListener("submit", addNewCard);
-
+*/
 // -------------------------------------
 
 downloadCards(initialCards);
-closePopupSetListeners();
