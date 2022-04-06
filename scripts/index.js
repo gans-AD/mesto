@@ -1,5 +1,6 @@
-import {Card} from './Card.js';
-import {openPopup, closePopup, enableValidation} from './utils.js';
+import { Card } from "./Card.js";
+import { FormValidator } from "./FormValidator.js";
+import { openPopup, closePopup } from "./utils.js";
 
 const popupEditProfile = document.querySelector(".popup_edit");
 const popupNewLocation = document.querySelector(".popup_location");
@@ -92,6 +93,15 @@ function save(evt) {
   profileName.textContent = popupEditNameElement.value;
   profileActivity.textContent = popupEditActivity.value;
   closePopup(popupEditProfile);
+}
+
+//валидация всех форм
+function enableValidation(selectors) {
+  const formList = document.querySelectorAll(selectors.formSelector);
+  formList.forEach((formElement) => {
+    const formElementValidation = new FormValidator(selectors, formElement);
+    formElementValidation.enableValidation();
+  });
 }
 
 //----- обработчики событий -----

@@ -1,5 +1,3 @@
-import {FormValidator} from './FormValidator.js';
-
 const popupImage = document.querySelector(".popup_image");
 const photoZoomable = document.querySelector(".image-popup__photo");
 const photoZoomableTitle = document.querySelector(".image-popup__title");
@@ -25,7 +23,6 @@ function closePopup(element) {
   element.classList.remove("popup_opened");
   document.removeEventListener("keydown", ClosePopupKeyHandler);
 }
-
 
 //закрытие popup клавишей Esc
 function ClosePopupKeyHandler(evt) {
@@ -55,16 +52,7 @@ function closePopupSetListeners() {
   });
 }
 
-//валидация всех форм
-function enableValidation(selectors) {
-  const formList = document.querySelectorAll(selectors.formSelector);
-  formList.forEach((formElement) => {
-    const formElementValidation = new FormValidator(selectors, formElement);
-    formElementValidation.enableValidation();
-  });
-}
-
 closePopupSetListeners();
 
 //экспортирование функций в другие модули
-export {openPopup, closePopup, openPhotoPopup, enableValidation};
+export { openPopup, closePopup, openPhotoPopup };
