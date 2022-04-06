@@ -1,11 +1,11 @@
-import {Card} from './Card.js'
+import {Card} from './Card.js';
+import {openPopup, closePopup, enableValidation} from './utils.js';
 
 const popupEditProfile = document.querySelector(".popup_edit");
 const popupNewLocation = document.querySelector(".popup_location");
 const popupImage = document.querySelector(".popup_image");
 const buttonEditElement = document.querySelector(".profile__edit-button"); // кнопка редактирования
 const buttonAddElement = document.querySelector(".profile__add-button");
-const popupSaveButtonElement = document.querySelector(".form__save-btn"); // кнопка сохранить
 const popupEditNameElement = document.querySelector(".form__input_name"); //имя пользователя в попапе
 const popupEditActivity = document.querySelector(".form__input_activity"); //род занятий пользователя в попапе
 const formLocation = document.forms.location;
@@ -19,8 +19,7 @@ const profileName = document.querySelector(".profile__name"); //имя поль�
 const profileActivity = document.querySelector(".profile__activity"); //род занятий пользователя в профиле на странице
 const placesElement = document.querySelector(".places");
 const placeTemplate = ".place-template"; //template карточки с местом
-const photoZoomable = document.querySelector(".image-popup__photo");
-const photoZoomableTitle = document.querySelector(".image-popup__title");
+
 const initialCards = [
   {
     name: "Архыз",
@@ -48,6 +47,15 @@ const initialCards = [
   },
 ];
 
+const selectorsValidation = {
+  formSelector: ".form",
+  inputSelector: ".form__input",
+  submitButtonSelector: ".form__save-btn",
+  inactiveButtonClass: "form__save-btn_inactive",
+  inputErrorClass: "form__input_errored",
+  errorClass: "form__input-error_active",
+};
+
 //добавление новой карточки в разметку
 function addCard(item) {
   const card = new Card(item.name, item.link, placeTemplate);
@@ -60,7 +68,6 @@ function downloadCards(items) {
   items.forEach(addCard);
 }
 
-/*
 function addNewCard(evt) {
   evt.preventDefault();
   const objectNewLocation = {};
@@ -87,7 +94,6 @@ function save(evt) {
   closePopup(popupEditProfile);
 }
 
-
 //----- обработчики событий -----
 //открытие popup редактирования профиля
 buttonEditElement.addEventListener("click", () => {
@@ -104,7 +110,8 @@ popupEditProfile.addEventListener("submit", save);
 
 //добавление новой карточки
 popupNewLocation.addEventListener("submit", addNewCard);
-*/
+
 // -------------------------------------
 
 downloadCards(initialCards);
+enableValidation(selectorsValidation);
