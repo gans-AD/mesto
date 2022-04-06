@@ -12,5 +12,6 @@ Cайт доступен по ссылке: (https://gans-ad.github.io/mesto/)
 - файловая структура [Nested БЭМ](https://ru.bem.info/methodology/filestructure/#nested)
 - адаптивная верстка
 - JavaScript
+- ООП
 - работа с формами
 
