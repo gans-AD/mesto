@@ -6,99 +6,77 @@ export class FormValidator {
 
   //валидация формы
   enableValidation() {
-    this._setInputValidations(this._form, this._selectorsValidation);
+    this._setInputValidations();
   }
 
   //показываем сообщение об ошибках
-  _showInputError(
-    formElement,
-    inputElement,
-    errorMessage,
-    { inputErrorClass, errorClass }
-  ) {
-    const errorElement = formElement.querySelector(
+  _showInputError(inputElement, errorMessage) {
+    this._errorElement = this._form.querySelector(
       `.${inputElement.name}-error`
     ); //ищем блок ошибки по имени input
 
-    errorElement.textContent = errorMessage;
-    inputElement.classList.add(inputErrorClass);
-    errorElement.classList.add(errorClass);
+    this._errorElement.textContent = errorMessage;
+    inputElement.classList.add(this._selectorsValidation.inputErrorClass);
+    this._errorElement.classList.add(this._selectorsValidation.errorClass);
   }
 
   //скрывает сообщение об ошибках
-  _hideInputError(formElement, inputElement, { inputErrorClass, errorClass }) {
-    const errorElement = formElement.querySelector(
+  _hideInputError(inputElement) {
+    this._errorElement = this._form.querySelector(
       `.${inputElement.name}-error`
     ); //ищем блок ошибки по имени input
 
-    errorElement.textContent = "";
-    inputElement.classList.remove(inputErrorClass);
-    errorElement.classList.remove(errorClass);
+    this._errorElement.textContent = "";
+    inputElement.classList.remove(this._selectorsValidation.inputErrorClass);
+    this._errorElement.classList.remove(this._selectorsValidation.errorClass);
   }
 
   //проверка наличия невалидного input
-  _hasInvalidInput(inputList) {
-    return inputList.some((inputElement) => {
+  _hasInvalidInput() {
+    return this._inputList.some((inputElement) => {
       return !inputElement.validity.valid;
     });
   }
 
   //деактивация кнопки отправки формы
-  _toggleButtonState(
-    inputList,
-    buttonElement,
-    { inactiveButtonClass, ...otherSelectors }
-  ) {
-    if (this._hasInvalidInput(inputList)) {
-      buttonElement.classList.add(inactiveButtonClass);
-      buttonElement.disabled = true;
+  toggleButtonState() {
+    if (this._hasInvalidInput()) {
+      this._buttonElement.classList.add(
+        this._selectorsValidation.inactiveButtonClass
+      );
+      this._buttonElement.disabled = true;
     } else {
-      buttonElement.classList.remove(inactiveButtonClass);
-      buttonElement.disabled = false;
+      this._buttonElement.classList.remove(
+        this._selectorsValidation.inactiveButtonClass
+      );
+      this._buttonElement.disabled = false;
     }
   }
 
   //проверяем валидность формы и показываем/скрываем сообщение об ошибках
-  _checkInputValidity(formElement, inputElement, { ...otherSelectors }) {
+  _checkInputValidity(inputElement) {
     if (!inputElement.validity.valid) {
-      this._showInputError(
-        formElement,
-        inputElement,
-        inputElement.validationMessage,
-        { ...otherSelectors }
-      );
+      this._showInputError(inputElement, inputElement.validationMessage);
     } else {
-      this._hideInputError(formElement, inputElement, { ...otherSelectors });
+      this._hideInputError(inputElement);
     }
   }
 
   //навешивание валидаций на все input-ы
-  _setInputValidations(
-    formElement,
-    {
-      inputSelector,
-      submitButtonSelector,
-      inactiveButtonClass,
-      ...otherSelectors
-    }
-  ) {
-    const inputList = Array.from(formElement.querySelectorAll(inputSelector));
-    const buttonElement = formElement.querySelector(submitButtonSelector);
+  _setInputValidations() {
+    this._inputList = Array.from(
+      this._form.querySelectorAll(this._selectorsValidation.inputSelector)
+    );
+    this._buttonElement = this._form.querySelector(
+      this._selectorsValidation.submitButtonSelector
+    );
 
-    this._toggleButtonState(inputList, buttonElement, {
-      inactiveButtonClass,
-      ...otherSelectors,
-    });
+    this.toggleButtonState();
 
-    inputList.forEach((inputElement) => {
+    this._inputList.forEach((inputElement) => {
       inputElement.addEventListener("input", () => {
-        this._checkInputValidity(formElement, inputElement, {
-          ...otherSelectors,
-        });
-        this._toggleButtonState(inputList, buttonElement, {
-          inactiveButtonClass,
-          ...otherSelectors,
-        });
+        this._checkInputValidity(inputElement);
+        this.toggleButtonState();
       });
     });
   }

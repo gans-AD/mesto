@@ -5,22 +5,24 @@ export class Card {
     this._title = title;
     this._photo = photo;
     this._alt = title;
-    this._cardSelector = cardSelector
+    this._cardSelector = cardSelector;
   }
 
   _getTemplate() {
     const cardElement = document
       .querySelector(this._cardSelector)
-      .content.cloneNode(true);
+      .content.querySelector(".place").cloneNode(true);
       return cardElement;
   }
 
   createCard() {
     this._element = this._getTemplate();
+    this._cardPhotoElement = this._element.querySelector(".place__photo");
+    this._likeButton = this._element.querySelector(".like");
     this._setEventListeners();
 
-    this._element.querySelector(".place__photo").src = this._photo;
-    this._element.querySelector(".place__photo").alt = this._title;
+    this._cardPhotoElement.src = this._photo;
+    this._cardPhotoElement.alt = this._title;
     this._element.querySelector(".place__title").textContent = this._title;
 
     return this._element;
@@ -36,20 +38,25 @@ export class Card {
   //кнопка like
   _buttonLike() {
     this._element.querySelector(".like").addEventListener("click", (evt) => {
-      evt.target.classList.toggle("like_activated");
+      this._handleLikeButton(evt);
     });
   }
 
   //кнопка удаления карточки
   _buttonTrash() {
     this._element.querySelector(".trash").addEventListener("click", (evt) => {
-      evt.target.closest(".place").remove();
+      this._element.remove();
+      this._element = null;
     });
   }
 
   //открытие popup просмотра фото
   _photoPopup() {
-    this._element.querySelector(".place__photo").addEventListener("click", openPhotoPopup);
+    this._cardPhotoElement.addEventListener("click", openPhotoPopup);
+  }
+
+  _handleLikeButton(evt) {
+    this._likeButton.classList.toggle("like_activated");
   }
 }
 

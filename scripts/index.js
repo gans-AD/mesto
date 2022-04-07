@@ -4,12 +4,12 @@ import { openPopup, closePopup } from "./utils.js";
 
 const popupEditProfile = document.querySelector(".popup_edit");
 const popupNewLocation = document.querySelector(".popup_location");
-const popupImage = document.querySelector(".popup_image");
 const buttonEditElement = document.querySelector(".profile__edit-button"); // кнопка редактирования
 const buttonAddElement = document.querySelector(".profile__add-button");
 const popupEditNameElement = document.querySelector(".form__input_name"); //имя пользователя в попапе
 const popupEditActivity = document.querySelector(".form__input_activity"); //род занятий пользователя в попапе
 const formLocation = document.forms.location;
+const formProfile = document.forms.profile;
 const locationAddNameInput = document.querySelector(
   ".form__input_location-name"
 ); //название места, для добавления карточки
@@ -57,16 +57,24 @@ const selectorsValidation = {
   errorClass: "form__input-error_active",
 };
 
-//добавление новой карточки в разметку
-function addCard(item) {
-  const card = new Card(item.name, item.link, placeTemplate);
+//создание новой карточки
+function createCard(data) {
+  const card = new Card(data.name, data.link, placeTemplate);
   const cardElement = card.createCard();
-  placesElement.prepend(cardElement);
+  return cardElement;
+}
+
+//добавление новой карточки в разметку
+function addCard(data, parent) {
+  const cardElement = createCard(data);
+  parent.prepend(cardElement);
 }
 
 //загрузка начальных карточек из массива
 function downloadCards(items) {
-  items.forEach(addCard);
+  items.forEach((item) => {
+  addCard(item, placesElement);
+  });
 }
 
 function addNewCard(evt) {
@@ -74,10 +82,10 @@ function addNewCard(evt) {
   const objectNewLocation = {};
   objectNewLocation.name = locationAddNameInput.value;
   objectNewLocation.link = locationAddLinkInput.value;
-  addCard(objectNewLocation);
+  addCard(objectNewLocation, placesElement);
   closePopup(popupNewLocation);
   formLocation.reset();
-  enableValidation(selectorsValidation);
+  addLocationValidation.toggleButtonState();
 }
 
 //открытие popup редактирования профиля
@@ -93,15 +101,6 @@ function save(evt) {
   profileName.textContent = popupEditNameElement.value;
   profileActivity.textContent = popupEditActivity.value;
   closePopup(popupEditProfile);
-}
-
-//валидация всех форм
-function enableValidation(selectors) {
-  const formList = document.querySelectorAll(selectors.formSelector);
-  formList.forEach((formElement) => {
-    const formElementValidation = new FormValidator(selectors, formElement);
-    formElementValidation.enableValidation();
-  });
 }
 
 //----- обработчики событий -----
@@ -123,5 +122,9 @@ popupNewLocation.addEventListener("submit", addNewCard);
 
 // -------------------------------------
 
+const profileValidation = new FormValidator(selectorsValidation, formProfile);
+const addLocationValidation = new FormValidator(selectorsValidation, formLocation);
+profileValidation.enableValidation();
+addLocationValidation.enableValidation();
+
 downloadCards(initialCards);
-enableValidation(selectorsValidation);
