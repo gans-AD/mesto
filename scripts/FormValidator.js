@@ -31,16 +31,9 @@ export class FormValidator {
     this._errorElement.classList.remove(this._selectorsValidation.errorClass);
   }
 
-  //проверка наличия невалидного input
-  _hasInvalidInput() {
-    return this._inputList.some((inputElement) => {
-      return !inputElement.validity.valid;
-    });
-  }
-
   //деактивация кнопки отправки формы
   toggleButtonState() {
-    if (this._hasInvalidInput()) {
+    if (!this._form.checkValidity()) {
       this._buttonElement.classList.add(
         this._selectorsValidation.inactiveButtonClass
       );
