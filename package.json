@@ -1,0 +1,19 @@
+{
+  "name": "mesto",
+  "version": "1.0.0",
+  "description": "Учебный проект курса \"Веб-разработчик\" от [Яндекс.Практикум](https://practicum.yandex.ru/). Представляет из себя интерактивную страницу, куда можно добавлять фотографии, удалять их и ставить лайки.\r Cайт доступен по ссылке: (https://gans-ad.github.io/mesto/)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gans-AD/mesto.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gans-AD/mesto/issues"
+  },
+  "homepage": "https://github.com/gans-AD/mesto#readme"
+}

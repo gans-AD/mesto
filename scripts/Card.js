@@ -1,4 +1,4 @@
-import {openPhotoPopup} from './utils.js';
+import { openPhotoPopup } from "./utils.js";
 
 export class Card {
   constructor(title, photo, cardSelector) {
@@ -11,8 +11,9 @@ export class Card {
   _getTemplate() {
     const cardElement = document
       .querySelector(this._cardSelector)
-      .content.querySelector(".place").cloneNode(true);
-      return cardElement;
+      .content.querySelector(".place")
+      .cloneNode(true);
+    return cardElement;
   }
 
   createCard() {
@@ -30,28 +31,18 @@ export class Card {
 
   //навешивание обработчиков на карточку
   _setEventListeners() {
-    this._buttonLike();
-    this._buttonTrash();
-    this._photoPopup();
-  }
-
-  //кнопка like
-  _buttonLike() {
-    this._element.querySelector(".like").addEventListener("click", (evt) => {
+    //кнопка like
+    this._likeButton.addEventListener("click", (evt) => {
       this._handleLikeButton(evt);
     });
-  }
 
-  //кнопка удаления карточки
-  _buttonTrash() {
+    //кнопка удаления карточки
     this._element.querySelector(".trash").addEventListener("click", (evt) => {
       this._element.remove();
       this._element = null;
     });
-  }
 
-  //открытие popup просмотра фото
-  _photoPopup() {
+    //открытие popup просмотра фото
     this._cardPhotoElement.addEventListener("click", openPhotoPopup);
   }
 
@@ -59,5 +50,3 @@ export class Card {
     this._likeButton.classList.toggle("like_activated");
   }
 }
-
-
