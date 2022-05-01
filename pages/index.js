@@ -18,6 +18,9 @@ import {
 } from "../utils/constants.js";
 import { Card } from "../components/Card.js";
 import { Section } from "../components/Section.js";
+import { Popup } from "../components/Popup.js";
+import { PopupWithImage } from "../components/PopupWithImage.js";
+import { PopupWithForm } from "../components/PopupWithForm.js";
 import { FormValidator } from "../components/FormValidator.js";
 import { openPopup, closePopup } from "../utils/utils.js";
 
@@ -35,7 +38,7 @@ const defaultCardsList = new Section(
   cardListSelector
 );
 
-defaultCardsList.renderItems();//загружаем карточки на страницу
+defaultCardsList.renderItems(); //загружаем карточки на страницу
 
 //-----------------------------------------------
 
