@@ -1,16 +1,17 @@
 import { openPhotoPopup } from "../utils/utils.js";
 
 export class Card {
-  constructor(title, photo, cardSelector) {
+  constructor(title, photo, templateCardSelector, handleCardClick) {
     this._title = title;
     this._photo = photo;
     this._alt = title;
-    this._cardSelector = cardSelector;
+    this._templateCardSelector = templateCardSelector;
+    this._handleCardClick = handleCardClick;//функция, выполняемая при клике на карточку
   }
 
   _getTemplate() {
     const cardElement = document
-      .querySelector(this._cardSelector)
+      .querySelector(this._templateCardSelector)
       .content.querySelector(".place")
       .cloneNode(true);
     return cardElement;
@@ -43,7 +44,7 @@ export class Card {
     });
 
     //открытие popup просмотра фото
-    this._cardPhotoElement.addEventListener("click", openPhotoPopup);
+    this._cardPhotoElement.addEventListener("click", this._handleCardClick);
   }
 
   _handleLikeButton(evt) {
