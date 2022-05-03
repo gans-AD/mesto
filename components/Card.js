@@ -1,5 +1,3 @@
-import { openPhotoPopup } from "../utils/utils.js";
-
 export class Card {
   constructor(title, photo, templateCardSelector, handleCardClick) {
     this._title = title;
@@ -33,8 +31,8 @@ export class Card {
   //навешивание обработчиков на карточку
   _setEventListeners() {
     //кнопка like
-    this._likeButton.addEventListener("click", (evt) => {
-      this._handleLikeButton(evt);
+    this._likeButton.addEventListener("click", () => {
+      this._handleLikeButton();
     });
 
     //кнопка удаления карточки
@@ -44,10 +42,12 @@ export class Card {
     });
 
     //открытие popup просмотра фото
-    this._cardPhotoElement.addEventListener("click", this._handleCardClick);
+    this._cardPhotoElement.addEventListener("click", (evt) => {
+      this._handleCardClick(evt);
+    });
   }
 
-  _handleLikeButton(evt) {
+  _handleLikeButton() {
     this._likeButton.classList.toggle("like_activated");
   }
 }

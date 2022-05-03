@@ -1,36 +1,44 @@
 import {
   initialCards,
   popupEditProfile,
-  popupNewLocation,
+  popupNewLocationSelector,
   buttonEditElement,
   buttonAddElement,
-  popupEditNameElement,
-  popupEditActivity,
+  inputNameElement,
+  inputActivityElement,
   formLocation,
   formProfile,
-  locationAddNameInput,
-  locationAddLinkInput,
-  profileName,
-  profileActivity,
   cardListSelector,
   placeTemplate,
   selectorsValidation,
+  usernameSelector,
+  profileActivitySelector,
+  popupImageSelector,
 } from "../utils/constants.js";
 import { Card } from "../components/Card.js";
 import { Section } from "../components/Section.js";
-import { Popup } from "../components/Popup.js";
 import { PopupWithImage } from "../components/PopupWithImage.js";
 import { PopupWithForm } from "../components/PopupWithForm.js";
+import { UserInfo } from "../components/UserInfo.js";
 import { FormValidator } from "../components/FormValidator.js";
-import { openPopup, closePopup } from "../utils/utils.js";
 
-//-----------------------------------------------
+//открытие popup просмотра фото
+const openPhotoPopup = (evt) => {
+  const popupPhoto = new PopupWithImage(popupImageSelector);
+  popupPhoto.open(evt);
+};
 
+//исходные карточки
 const defaultCardsList = new Section(
   {
     items: initialCards,
     renderer: (item) => {
-      const card = new Card(item.name, item.link, placeTemplate);
+      const card = new Card(
+        item.name,
+        item.link,
+        placeTemplate,
+        openPhotoPopup
+      );
       const cardElement = card.createCard();
       defaultCardsList.addItem(cardElement);
     },
@@ -38,52 +46,42 @@ const defaultCardsList = new Section(
   cardListSelector
 );
 
-defaultCardsList.renderItems(); //загружаем карточки на страницу
+const userInfo = new UserInfo({ usernameSelector, profileActivitySelector });
 
-//-----------------------------------------------
+const popupProfile = new PopupWithForm(popupEditProfile, (data) => {
+  userInfo.setUserInfo(data);
+  popupProfile.close();
+});
 
-function addNewCard(evt) {
-  evt.preventDefault();
-  const objectNewLocation = {};
-  objectNewLocation.name = locationAddNameInput.value;
-  objectNewLocation.link = locationAddLinkInput.value;
-  addCard(objectNewLocation, cardListSelector);
-  closePopup(popupNewLocation);
-  formLocation.reset();
+const popupNewLocation = new PopupWithForm(popupNewLocationSelector, (data) => {
+  const newCard = new Card(
+    data.locationName,
+    data.locationUrl,
+    placeTemplate,
+    openPhotoPopup
+  );
+
+  const newCardElement = newCard.createCard();
+  defaultCardsList.addItem(newCardElement);
+  popupNewLocation.close();
   addLocationValidation.toggleButtonState();
-}
+});
 
-//открытие popup редактирования профиля
-function openProfilePopup() {
-  popupEditNameElement.value = profileName.textContent;
-  popupEditActivity.value = profileActivity.textContent;
-  openPopup(popupEditProfile);
-}
-
-//кнопка сохранить
-function save(evt) {
-  evt.preventDefault();
-  profileName.textContent = popupEditNameElement.value;
-  profileActivity.textContent = popupEditActivity.value;
-  closePopup(popupEditProfile);
-}
+defaultCardsList.renderItems(); //загружаем карточки на страницу
 
 //----- обработчики событий -----
 //открытие popup редактирования профиля
 buttonEditElement.addEventListener("click", () => {
-  openProfilePopup();
+  const profileData = userInfo.getUserInfo();
+  inputNameElement.value = profileData.username;
+  inputActivityElement.value = profileData.activity;
+  popupProfile.open();
 });
 
 //отрытие popup добавления фотографии
 buttonAddElement.addEventListener("click", () => {
-  openPopup(popupNewLocation);
+  popupNewLocation.open();
 });
-
-//кнопка сохранить
-popupEditProfile.addEventListener("submit", save);
-
-//добавление новой карточки
-popupNewLocation.addEventListener("submit", addNewCard);
 
 // -------------------------------------
 

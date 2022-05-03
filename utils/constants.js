@@ -25,28 +25,26 @@ export const initialCards = [
   },
 ];
 
-export const popupEditProfile = document.querySelector(".popup_edit");
-export const popupNewLocation = document.querySelector(".popup_location");
+export const popupEditProfile = ".popup_edit";
+export const popupNewLocationSelector = ".popup_location";
 export const buttonEditElement = document.querySelector(
   ".profile__edit-button"
 ); // кнопка редактирования
 export const buttonAddElement = document.querySelector(".profile__add-button");
-export const popupEditNameElement = document.querySelector(".form__input_name"); //имя пользователя в попапе
-export const popupEditActivity = document.querySelector(
+export const inputNameElement = document.querySelector(".form__input_name"); //имя пользователя в попапе
+export const inputActivityElement = document.querySelector(
   ".form__input_activity"
 ); //род занятий пользователя в попапе
 export const formLocation = document.forms.location;
 export const formProfile = document.forms.profile;
-export const locationAddNameInput = document.querySelector(
-  ".form__input_location-name"
-); //название места, для добавления карточки
-export const locationAddLinkInput = document.querySelector(
-  ".form__input_location-url"
-); // ссылка на фото,  для добавления карточки
-export const profileName = document.querySelector(".profile__name"); //имя пользователя в профиле на странице
-export const profileActivity = document.querySelector(".profile__activity"); //род занятий пользователя в профиле на странице
+
+//селекторы информации о пользователе
+export const usernameSelector = ".profile__name";
+export const profileActivitySelector = ".profile__activity";
 export const cardListSelector = ".places";
 export const placeTemplate = ".place-template"; //template карточки с местом
+
+export const popupImageSelector = ".popup_image";
 
 export const selectorsValidation = {
   formSelector: ".form",
