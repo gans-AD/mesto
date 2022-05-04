@@ -30,6 +30,7 @@ const openPhotoPopup = (title, photo) => {
   popupPhoto.open(title, photo);
 };
 
+//создание новой карточки
 const createNewCard = (title, photo) => {
   const card = new Card(title, photo, placeTemplate, openPhotoPopup);
   return card;
