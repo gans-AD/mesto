@@ -42,8 +42,8 @@ export class Card {
     });
 
     //открытие popup просмотра фото
-    this._cardPhotoElement.addEventListener("click", (evt) => {
-      this._handleCardClick(evt);
+    this._cardPhotoElement.addEventListener("click", () => {
+      this._handleCardClick(this._title, this._photo);
     });
   }
 

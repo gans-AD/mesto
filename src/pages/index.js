@@ -21,27 +21,28 @@ import { PopupWithImage } from "../components/PopupWithImage.js";
 import { PopupWithForm } from "../components/PopupWithForm.js";
 import { UserInfo } from "../components/UserInfo.js";
 import { FormValidator } from "../components/FormValidator.js";
-import "./index.css";
+import "./index.css"; // подключение стилей css
 
 //открытие popup просмотра фото
-const openPhotoPopup = (evt) => {
+const openPhotoPopup = (title, photo) => {
   const popupPhoto = new PopupWithImage(popupImageSelector);
-  popupPhoto.open(evt);
+  popupPhoto.setEventListeners();
+  popupPhoto.open(title, photo);
+};
+
+const createNewCard = (title, photo) => {
+  const card = new Card(title, photo, placeTemplate, openPhotoPopup);
+  return card;
 };
 
 //исходные карточки
-const defaultCardsList = new Section(
+const cardList = new Section(
   {
     items: initialCards,
     renderer: (item) => {
-      const card = new Card(
-        item.name,
-        item.link,
-        placeTemplate,
-        openPhotoPopup
-      );
+      const card = createNewCard(item.name, item.link);
       const cardElement = card.createCard();
-      defaultCardsList.addItem(cardElement);
+      cardList.addItem(cardElement);
     },
   },
   cardListSelector
@@ -52,23 +53,20 @@ const userInfo = new UserInfo({ usernameSelector, profileActivitySelector });
 const popupProfile = new PopupWithForm(popupEditProfile, (data) => {
   userInfo.setUserInfo(data);
   popupProfile.close();
+  profileValidation.toggleButtonState();
 });
+popupProfile.setEventListeners();
 
 const popupNewLocation = new PopupWithForm(popupNewLocationSelector, (data) => {
-  const newCard = new Card(
-    data.locationName,
-    data.locationUrl,
-    placeTemplate,
-    openPhotoPopup
-  );
-
+  const newCard = createNewCard(data.locationName, data.locationUrl);
   const newCardElement = newCard.createCard();
-  defaultCardsList.addItem(newCardElement);
+  cardList.addItem(newCardElement);
   popupNewLocation.close();
   addLocationValidation.toggleButtonState();
 });
+popupNewLocation.setEventListeners();
 
-defaultCardsList.renderItems(); //загружаем карточки на страницу
+cardList.renderItems(); //загружаем карточки на страницу
 
 //----- обработчики событий -----
 //открытие popup редактирования профиля
