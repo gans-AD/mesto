@@ -23,17 +23,13 @@ import { UserInfo } from "../components/UserInfo.js";
 import { FormValidator } from "../components/FormValidator.js";
 import "./index.css"; // подключение стилей css
 
-//открытие popup просмотра фото
-const openPhotoPopup = (title, photo) => {
-  const popupPhoto = new PopupWithImage(popupImageSelector);
-  popupPhoto.setEventListeners();
-  popupPhoto.open(title, photo);
-};
+const popupPhoto = new PopupWithImage(popupImageSelector);
+popupPhoto.setEventListeners();
 
 //создание новой карточки
 const createNewCard = (title, photo) => {
-  const card = new Card(title, photo, placeTemplate, openPhotoPopup);
-  return card;
+  const card = new Card(title, photo, placeTemplate, ()=> popupPhoto.open(title, photo));
+  return card.createCard();
 };
 
 //исходные карточки
@@ -42,8 +38,7 @@ const cardList = new Section(
     items: initialCards,
     renderer: (item) => {
       const card = createNewCard(item.name, item.link);
-      const cardElement = card.createCard();
-      cardList.addItem(cardElement);
+      cardList.addItem(card);
     },
   },
   cardListSelector
