@@ -36,6 +36,6 @@ export class Popup {
 
   setEventListeners() {
     //закрытие кликом мыши
-    this._popupElement.addEventListener("click", this._handleClickClose);
+    this._popupElement.addEventListener("mousedown", this._handleClickClose);
   }
 }
