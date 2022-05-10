@@ -1,5 +1,6 @@
 import {
-  initialCards,
+  baseUrlMesto,
+  myToken,
   popupEditProfile,
   popupNewLocationSelector,
   buttonEditElement,
@@ -21,53 +22,43 @@ import { PopupWithImage } from "../components/PopupWithImage.js";
 import { PopupWithForm } from "../components/PopupWithForm.js";
 import { UserInfo } from "../components/UserInfo.js";
 import { FormValidator } from "../components/FormValidator.js";
-import { Api } from "../components/Api.js"
+import { Api } from "../components/Api.js";
 import "./index.css"; // подключение стилей css
 
-//запрос на сервер
+//API сервера
 const api = new Api({
-  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-40',
+  baseUrl: baseUrlMesto,
   headers: {
-    authorization: '2ab4ce65-b376-4883-b59c-64454531d09d',
-    'Content-Type': 'application/json'
-  }}
-)
+    authorization: myToken,
+    "Content-Type": "application/json",
+  },
+});
 
-api.getInitialCards()
-  .then(res => {
-    console.log(res)
-  })
-  .catch((err) => {
-    console.log(err);
-  });
+//информация о пользовалете
+const userInfo = new UserInfo({ usernameSelector, profileActivitySelector });
 
 const popupPhoto = new PopupWithImage(popupImageSelector);
 popupPhoto.setEventListeners();
 
 //создание новой карточки
 const createNewCard = (title, photo) => {
-  const card = new Card(title, photo, placeTemplate, ()=> popupPhoto.open(title, photo));
+  const card = new Card(title, photo, placeTemplate, () =>
+    popupPhoto.open(title, photo)
+  );
   return card.createCard();
 };
 
-//исходные карточки
-const cardList = new Section(
-  {
-    items: api.getInitialCards(),
-    renderer: (item) => {
-      const card = createNewCard(item.name, item.link);
-      cardList.addItem(card);
-    },
-  },
-  cardListSelector
-);
-
-const userInfo = new UserInfo({ usernameSelector, profileActivitySelector });
-
 const popupProfile = new PopupWithForm(popupEditProfile, (data) => {
-  userInfo.setUserInfo(data);
-  popupProfile.close();
-  profileValidation.toggleButtonState();
+  api
+    .editUserInfo(data)
+    .then(() => {
+      userInfo.setUserInfo(data);
+      popupProfile.close();
+      profileValidation.toggleButtonState();
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 });
 popupProfile.setEventListeners();
 
@@ -79,8 +70,6 @@ const popupNewLocation = new PopupWithForm(popupNewLocationSelector, (data) => {
   addLocationValidation.toggleButtonState();
 });
 popupNewLocation.setEventListeners();
-
-cardList.renderItems(); //загружаем карточки на страницу
 
 //----- обработчики событий -----
 //открытие popup редактирования профиля
@@ -105,3 +94,34 @@ const addLocationValidation = new FormValidator(
 );
 profileValidation.enableValidation();
 addLocationValidation.enableValidation();
+
+//загружаем карточки с сервера
+api
+  .getInitialCards()
+  .then((res) => {
+    //исходные карточки
+    const cardList = new Section(
+      {
+        items: res,
+        renderer: (item) => {
+          const card = createNewCard(item.name, item.link);
+          cardList.addItem(card);
+        },
+      },
+      cardListSelector
+    );
+    cardList.renderItems(); //отрисовываем карточки на странице
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+
+//загружаем информацию о пользователе с сервера
+api
+  .getUserInfo()
+  .then((res) => {
+    userInfo.setUserInfo({ username: res.name, activity: res.about });
+  })
+  .catch((err) => {
+    console.log(err);
+  });
