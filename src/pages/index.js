@@ -41,8 +41,8 @@ const popupPhoto = new PopupWithImage(popupImageSelector);
 popupPhoto.setEventListeners();
 
 //создание новой карточки
-const createNewCard = (title, photo) => {
-  const card = new Card(title, photo, placeTemplate, () =>
+const createNewCard = (title, photo, likes) => {
+  const card = new Card(title, photo, likes, placeTemplate, () =>
     popupPhoto.open(title, photo)
   );
   return card.createCard();
@@ -104,7 +104,7 @@ api
       {
         items: res,
         renderer: (item) => {
-          const card = createNewCard(item.name, item.link);
+          const card = createNewCard(item.name, item.link, item.likes);
           cardList.addItem(card);
         },
       },

@@ -1,8 +1,9 @@
 export class Card {
-  constructor(title, photo, templateCardSelector, handleCardClick) {
+  constructor(title, photo, likes, templateCardSelector, handleCardClick) {
     this._title = title;
     this._photo = photo;
     this._alt = title;
+    this._likes = likes;
     this._templateCardSelector = templateCardSelector;
     this._handleCardClick = handleCardClick;//функция, выполняемая при клике на карточку
   }
@@ -19,11 +20,13 @@ export class Card {
     this._element = this._getTemplate();
     this._cardPhotoElement = this._element.querySelector(".place__photo");
     this._likeButton = this._element.querySelector(".like");
+    this._likeCounter = this._element.querySelector(".like-counter");
     this._setEventListeners();
 
     this._cardPhotoElement.src = this._photo;
     this._cardPhotoElement.alt = this._title;
     this._element.querySelector(".place__title").textContent = this._title;
+    this._likeCounter.textContent = this._likes.length;
 
     return this._element;
   }

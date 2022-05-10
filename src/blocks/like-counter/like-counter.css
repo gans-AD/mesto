@@ -1,0 +1,9 @@
+.like-counter {
+font-size: 13px;
+font-weight: 400;
+line-height: 16px;
+color: #000000;
+margin: 3px 20px 0 0;
+text-align: center;
+content: "";
+}

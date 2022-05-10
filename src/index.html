@@ -4,7 +4,11 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" href="<%=require('./images/favicon_mesto.svg')%>" type="image/x-icon" />
+    <link
+      rel="icon"
+      href="<%=require('./images/favicon_mesto.svg')%>"
+      type="image/x-icon"
+    />
     <title>Проект: Место</title>
   </head>
   <body>
@@ -133,11 +137,14 @@
 
         <div class="place__info">
           <h2 class="place__title"></h2>
-          <button
-            type="button"
-            class="like"
-            aria-label="кнопка нравиться"
-          ></button>
+          <div>
+            <button
+              type="button"
+              class="like"
+              aria-label="кнопка нравиться"
+            ></button>
+            <h4 class="like-counter"></h4>
+          </div>
         </div>
         <button
           type="button"
