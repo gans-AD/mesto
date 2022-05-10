@@ -21,7 +21,25 @@ import { PopupWithImage } from "../components/PopupWithImage.js";
 import { PopupWithForm } from "../components/PopupWithForm.js";
 import { UserInfo } from "../components/UserInfo.js";
 import { FormValidator } from "../components/FormValidator.js";
+import { Api } from "../components/Api.js"
 import "./index.css"; // подключение стилей css
+
+//запрос на сервер
+const api = new Api({
+  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-40',
+  headers: {
+    authorization: '2ab4ce65-b376-4883-b59c-64454531d09d',
+    'Content-Type': 'application/json'
+  }}
+)
+
+api.getInitialCards()
+  .then(res => {
+    console.log(res)
+  })
+  .catch((err) => {
+    console.log(err);
+  });
 
 const popupPhoto = new PopupWithImage(popupImageSelector);
 popupPhoto.setEventListeners();
@@ -35,7 +53,7 @@ const createNewCard = (title, photo) => {
 //исходные карточки
 const cardList = new Section(
   {
-    items: initialCards,
+    items: api.getInitialCards(),
     renderer: (item) => {
       const card = createNewCard(item.name, item.link);
       cardList.addItem(card);
