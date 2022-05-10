@@ -20,6 +20,21 @@ export class Api {
     );
   }
 
+  //добавление новой карточки
+  addCard(data) {
+    return fetch(`${this._url}/cards`,
+    { method: 'POST',
+      headers: this._headers,
+      body: JSON.stringify({
+        name: data.locationName,
+        link: data.locationUrl
+      })
+    })
+    .then(
+      this._requestHandler
+    );
+  }
+
   //загрузка информации о пользователе с сервера
   getUserInfo() {
     return fetch(`${this._url}/users/me`,

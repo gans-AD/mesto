@@ -34,67 +34,6 @@ const api = new Api({
   },
 });
 
-//информация о пользовалете
-const userInfo = new UserInfo({ usernameSelector, profileActivitySelector });
-
-const popupPhoto = new PopupWithImage(popupImageSelector);
-popupPhoto.setEventListeners();
-
-//создание новой карточки
-const createNewCard = (title, photo, likes) => {
-  const card = new Card(title, photo, likes, placeTemplate, () =>
-    popupPhoto.open(title, photo)
-  );
-  return card.createCard();
-};
-
-const popupProfile = new PopupWithForm(popupEditProfile, (data) => {
-  api
-    .editUserInfo(data)
-    .then(() => {
-      userInfo.setUserInfo(data);
-      popupProfile.close();
-      profileValidation.toggleButtonState();
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-});
-popupProfile.setEventListeners();
-
-const popupNewLocation = new PopupWithForm(popupNewLocationSelector, (data) => {
-  const newCard = createNewCard(data.locationName, data.locationUrl);
-  const newCardElement = newCard.createCard();
-  cardList.addItem(newCardElement);
-  popupNewLocation.close();
-  addLocationValidation.toggleButtonState();
-});
-popupNewLocation.setEventListeners();
-
-//----- обработчики событий -----
-//открытие popup редактирования профиля
-buttonEditElement.addEventListener("click", () => {
-  const profileData = userInfo.getUserInfo();
-  inputNameElement.value = profileData.username;
-  inputActivityElement.value = profileData.activity;
-  popupProfile.open();
-});
-
-//отрытие popup добавления фотографии
-buttonAddElement.addEventListener("click", () => {
-  popupNewLocation.open();
-});
-
-// -------------------------------------
-
-const profileValidation = new FormValidator(selectorsValidation, formProfile);
-const addLocationValidation = new FormValidator(
-  selectorsValidation,
-  formLocation
-);
-profileValidation.enableValidation();
-addLocationValidation.enableValidation();
-
 //загружаем карточки с сервера
 api
   .getInitialCards()
@@ -125,3 +64,74 @@ api
   .catch((err) => {
     console.log(err);
   });
+
+//информация о пользовалете
+const userInfo = new UserInfo({ usernameSelector, profileActivitySelector });
+
+const popupPhoto = new PopupWithImage(popupImageSelector);
+popupPhoto.setEventListeners();
+
+//создание новой карточки
+const createNewCard = (title, photo, likes) => {
+  const card = new Card(title, photo, likes, placeTemplate, () =>
+    popupPhoto.open(title, photo)
+  );
+  return card.createCard();
+};
+
+const popupProfile = new PopupWithForm(popupEditProfile, (data) => {
+  api
+    .editUserInfo(data)
+    .then(() => {
+      userInfo.setUserInfo(data);
+      popupProfile.close();
+      profileValidation.toggleButtonState();
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
+popupProfile.setEventListeners();
+
+const popupNewLocation = new PopupWithForm(popupNewLocationSelector, (data) => {
+  api
+    .addCard(data)
+    .then(() => {
+      const newCard = createNewCard(data.locationName, data.locationUrl, []);
+      console.log(newCard);
+      //const newCardElement = newCard.createCard();
+      cardList.addItem(newCard);
+      popupNewLocation.close();
+      addLocationValidation.toggleButtonState();
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
+popupNewLocation.setEventListeners();
+
+//----- обработчики событий -----
+//открытие popup редактирования профиля
+buttonEditElement.addEventListener("click", () => {
+  const profileData = userInfo.getUserInfo();
+  inputNameElement.value = profileData.username;
+  inputActivityElement.value = profileData.activity;
+  popupProfile.open();
+});
+
+//отрытие popup добавления фотографии
+buttonAddElement.addEventListener("click", () => {
+  popupNewLocation.open();
+});
+
+// -------------------------------------
+
+const profileValidation = new FormValidator(selectorsValidation, formProfile);
+const addLocationValidation = new FormValidator(
+  selectorsValidation,
+  formLocation
+);
+profileValidation.enableValidation();
+addLocationValidation.enableValidation();
+
+
