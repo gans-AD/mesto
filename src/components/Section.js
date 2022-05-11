@@ -1,12 +1,12 @@
 export  class Section {
-  constructor({ items, renderer }, containerSelector) {
+  constructor({ items, renderer }, containerSelector, api) {
     this._initialArray = items; //массив данных для добавления на страницу
     this._renderer = renderer; //функция отрисовки элемента
     this._container = document.querySelector(containerSelector); //сюда будут добавляться данные из items
   }
 
-  renderItems() {
-    this._initialArray.forEach((item) => {
+  renderItems(cardsArr = this._initialArray) {
+    cardsArr.forEach((item) => {
       this._renderer(item);
     });
   }

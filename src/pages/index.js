@@ -34,36 +34,17 @@ const api = new Api({
   },
 });
 
-//загружаем карточки с сервера
-api
-  .getInitialCards()
-  .then((res) => {
-    //исходные карточки
-    const cardList = new Section(
-      {
-        items: res,
-        renderer: (item) => {
-          const card = createNewCard(item.name, item.link, item.likes);
-          cardList.addItem(card);
-        },
-      },
-      cardListSelector
-    );
-    cardList.renderItems(); //отрисовываем карточки на странице
-  })
-  .catch((err) => {
-    console.log(err);
-  });
-
-//загружаем информацию о пользователе с сервера
-api
-  .getUserInfo()
-  .then((res) => {
-    userInfo.setUserInfo({ username: res.name, activity: res.about });
-  })
-  .catch((err) => {
-    console.log(err);
-  });
+//создание секции с карточками
+const cardList = new Section(
+  {
+    items: [],
+    renderer: (item) => {
+      const card = createNewCard(item.name, item.link, item.likes);
+      cardList.addItem(card);
+    },
+  },
+  cardListSelector
+);
 
 //информация о пользовалете
 const userInfo = new UserInfo({ usernameSelector, profileActivitySelector });
@@ -93,12 +74,11 @@ const popupProfile = new PopupWithForm(popupEditProfile, (data) => {
 });
 popupProfile.setEventListeners();
 
-const popupNewLocation = new PopupWithForm(popupNewLocationSelector, (data) => {
+const popupNewLocation = new PopupWithForm(popupNewLocationSelector, (data, ) => {
   api
     .addCard(data)
     .then(() => {
       const newCard = createNewCard(data.locationName, data.locationUrl, []);
-      console.log(newCard);
       //const newCardElement = newCard.createCard();
       cardList.addItem(newCard);
       popupNewLocation.close();
@@ -134,4 +114,22 @@ const addLocationValidation = new FormValidator(
 profileValidation.enableValidation();
 addLocationValidation.enableValidation();
 
+//загружаем карточки с сервера
+api
+  .getInitialCards()
+  .then((res) => {
+    cardList.renderItems(res); //отрисовываем карточки на странице
+  })
+  .catch((err) => {
+    console.log(err);
+  });
 
+//загружаем информацию о пользователе с сервера
+api
+  .getUserInfo()
+  .then((res) => {
+    userInfo.setUserInfo({ username: res.name, activity: res.about });
+  })
+  .catch((err) => {
+    console.log(err);
+  });
