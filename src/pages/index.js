@@ -121,6 +121,9 @@ const popupNewLocation = new PopupWithForm(popupNewLocationSelector, (data) => {
         likes: [],
         owner: { _id: userInfo._id },
       });
+      return newCard;
+    })
+    .then((newCard) => {
       cardList.addItem(newCard);
       popupNewLocation.close();
       addLocationValidation.toggleButtonState();

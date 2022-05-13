@@ -25,15 +25,19 @@ export class Card {
     return cardElement;
   }
 
+  _trashButton
+
   createCard() {
     this._element = this._getTemplate();
     this._cardPhotoElement = this._element.querySelector(".place__photo");
     this._likeButton = this._element.querySelector(".like");
     this._likeCounter = this._element.querySelector(".like-counter");
     this._trashButton = this._element.querySelector(".trash");
+
     if (this._userId === this._ownerId) {
       this._trashButton.classList.add("trash_active");
     }
+
     this._setEventListeners();
 
     this._cardPhotoElement.src = this._photo;
