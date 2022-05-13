@@ -114,16 +114,8 @@ popupProfile.setEventListeners();
 const popupNewLocation = new PopupWithForm(popupNewLocationSelector, (data) => {
   api
     .addCard(data)
-    .then(() => {
-      const newCard = createNewCard({
-        name: data.locationName,
-        link: data.locationUrl,
-        likes: [],
-        owner: { _id: userInfo._id },
-      });
-      return newCard;
-    })
-    .then((newCard) => {
+    .then((res) => {
+      const newCard = createNewCard(res);
       cardList.addItem(newCard);
       popupNewLocation.close();
       addLocationValidation.toggleButtonState();
