@@ -35,6 +35,17 @@ export class Api {
     );
   }
 
+  //удаление карточки
+  deleteCard(_id) {
+    return fetch(`${this._url}/cards/${_id}`,
+    { method: 'DELETE',
+      headers: this._headers
+    })
+    .then(
+      this._requestHandler
+    );
+  }
+
   //загрузка информации о пользователе с сервера
   getUserInfo() {
     return fetch(`${this._url}/users/me`,

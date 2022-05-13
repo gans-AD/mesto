@@ -2,6 +2,7 @@ export const baseUrlMesto = 'https://mesto.nomoreparties.co/v1/cohort-40';
 export const myToken = '2ab4ce65-b376-4883-b59c-64454531d09d';
 export const popupEditProfile = ".popup_edit";
 export const popupNewLocationSelector = ".popup_location";
+export const popupDelCardSelector = ".popup_delete-card";
 export const buttonEditElement = document.querySelector(
   ".profile__edit-button"
 ); // кнопка редактирования

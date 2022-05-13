@@ -21,13 +21,13 @@
         <section class="profile" aria-label="профиль пользователя">
           <div class="profile__avatar"></div>
           <div class="profile__info">
-            <h1 class="profile__name">Жак-Ив Кусто</h1>
+            <h1 class="profile__name"></h1>
             <button
               type="button"
               class="profile__edit-button"
               aria-label="кнопка редактирования профиля"
             ></button>
-            <p class="profile__activity">Исследователь океана</p>
+            <p class="profile__activity"></p>
           </div>
           <button
             type="button"
@@ -108,6 +108,18 @@
           </div>
 
           <button type="submit" class="form__save-btn">Создать</button>
+          <button
+            type="button"
+            class="close-btn"
+            aria-label="кнопка закрыть"
+          ></button>
+        </form>
+      </div>
+
+      <div class="popup popup_delete-card">
+        <form name="card-delete" class="form form_delete-card" novalidate>
+          <h3 class="form__title">Вы уверены?</h3>
+          <button type="submit" class="form__save-btn">Да</button>
           <button
             type="button"
             class="close-btn"

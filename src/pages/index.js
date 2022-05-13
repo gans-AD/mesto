@@ -3,6 +3,7 @@ import {
   myToken,
   popupEditProfile,
   popupNewLocationSelector,
+  popupDelCardSelector,
   buttonEditElement,
   buttonAddElement,
   inputNameElement,
@@ -20,10 +21,13 @@ import { Card } from "../components/Card.js";
 import { Section } from "../components/Section.js";
 import { PopupWithImage } from "../components/PopupWithImage.js";
 import { PopupWithForm } from "../components/PopupWithForm.js";
+import { PopupWithConfirm } from "../components/PopupWithConfirm.js";
 import { UserInfo } from "../components/UserInfo.js";
 import { FormValidator } from "../components/FormValidator.js";
 import { Api } from "../components/Api.js";
 import "./index.css"; // подключение стилей css
+
+let deletedCard = null; //ссылка на удаляемую карточку
 
 //API сервера
 const api = new Api({
@@ -34,12 +38,26 @@ const api = new Api({
   },
 });
 
+//загружаем информацию о пользователе с сервера
+api
+  .getUserInfo()
+  .then((res) => {
+    userInfo.setUserInfo({
+      username: res.name,
+      activity: res.about,
+      _id: res._id,
+    });
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+
 //создание секции с карточками
 const cardList = new Section(
   {
     items: [],
     renderer: (item) => {
-      const card = createNewCard(item.name, item.link, item.likes);
+      const card = createNewCard(item);
       cardList.addItem(card);
     },
   },
@@ -52,14 +70,32 @@ const userInfo = new UserInfo({ usernameSelector, profileActivitySelector });
 const popupPhoto = new PopupWithImage(popupImageSelector);
 popupPhoto.setEventListeners();
 
+//попап удаления карточки
+const popupDeleteCard = new PopupWithConfirm(popupDelCardSelector, (cardId) => {
+  api
+    .deleteCard(cardId)
+    .then(() => deletedCard.deleteCard())
+    .then(() => (deletedCard = null))
+    .then(() => popupDeleteCard.close())
+    .catch((err) => {
+      console.log(err);
+    });
+});
+popupDeleteCard.setEventListeners();
+
 //создание новой карточки
-const createNewCard = (title, photo, likes) => {
-  const card = new Card(title, photo, likes, placeTemplate, () =>
-    popupPhoto.open(title, photo)
-  );
+const createNewCard = (data) => {
+  const card = new Card(data, placeTemplate, userInfo._id, {
+    handleCardClick: () => popupPhoto.open(data.title, data.link),
+    handleDeleteCard: () => {
+      deletedCard = card;
+      popupDeleteCard.open(data._id);
+    },
+  });
   return card.createCard();
 };
 
+//попап редактирования профиля
 const popupProfile = new PopupWithForm(popupEditProfile, (data) => {
   api
     .editUserInfo(data)
@@ -74,12 +110,17 @@ const popupProfile = new PopupWithForm(popupEditProfile, (data) => {
 });
 popupProfile.setEventListeners();
 
-const popupNewLocation = new PopupWithForm(popupNewLocationSelector, (data, ) => {
+//попап добавления карточки
+const popupNewLocation = new PopupWithForm(popupNewLocationSelector, (data) => {
   api
     .addCard(data)
     .then(() => {
-      const newCard = createNewCard(data.locationName, data.locationUrl, []);
-      //const newCardElement = newCard.createCard();
+      const newCard = createNewCard({
+        name: data.locationName,
+        link: data.locationUrl,
+        likes: [],
+        owner: { _id: userInfo._id },
+      });
       cardList.addItem(newCard);
       popupNewLocation.close();
       addLocationValidation.toggleButtonState();
@@ -119,16 +160,6 @@ api
   .getInitialCards()
   .then((res) => {
     cardList.renderItems(res); //отрисовываем карточки на странице
-  })
-  .catch((err) => {
-    console.log(err);
-  });
-
-//загружаем информацию о пользователе с сервера
-api
-  .getUserInfo()
-  .then((res) => {
-    userInfo.setUserInfo({ username: res.name, activity: res.about });
   })
   .catch((err) => {
     console.log(err);

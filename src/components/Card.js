@@ -1,11 +1,20 @@
 export class Card {
-  constructor(title, photo, likes , templateCardSelector, handleCardClick) {
-    this._title = title;
-    this._photo = photo;
-    this._alt = title;
+  constructor(
+    { name, link, likes, _id, owner },
+    templateCardSelector,
+    userId,
+    { handleCardClick, handleDeleteCard }
+  ) {
+    this._title = name;
+    this._photo = link;
+    this._alt = name;
     this._likes = likes;
+    this._id = _id;
+    this._userId = userId;
+    this._ownerId = owner._id;
     this._templateCardSelector = templateCardSelector;
-    this._handleCardClick = handleCardClick;//функция, выполняемая при клике на карточку
+    this._handleCardClick = handleCardClick; //функция, выполняемая при клике на карточку
+    this._handleDeleteCard = handleDeleteCard;
   }
 
   _getTemplate() {
@@ -21,6 +30,10 @@ export class Card {
     this._cardPhotoElement = this._element.querySelector(".place__photo");
     this._likeButton = this._element.querySelector(".like");
     this._likeCounter = this._element.querySelector(".like-counter");
+    this._trashButton = this._element.querySelector(".trash");
+    if (this._userId === this._ownerId) {
+      this._trashButton.classList.add("trash_active");
+    }
     this._setEventListeners();
 
     this._cardPhotoElement.src = this._photo;
@@ -31,6 +44,11 @@ export class Card {
     return this._element;
   }
 
+  deleteCard() {
+    this._element.remove();
+    this._element = null;
+  }
+
   //навешивание обработчиков на карточку
   _setEventListeners() {
     //кнопка like
@@ -39,9 +57,8 @@ export class Card {
     });
 
     //кнопка удаления карточки
-    this._element.querySelector(".trash").addEventListener("click", (evt) => {
-      this._element.remove();
-      this._element = null;
+    this._trashButton.addEventListener("click", (evt) => {
+      this._handleDeleteCard();
     });
 
     //открытие popup просмотра фото

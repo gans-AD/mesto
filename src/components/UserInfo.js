@@ -20,5 +20,6 @@ export class UserInfo {
   setUserInfo(data) {
     this._usernameElement.textContent = data.username;
     this._profileActivityElement.textContent = data.activity;
+    this._id = data._id;
   }
 }
