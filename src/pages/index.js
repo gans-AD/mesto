@@ -10,12 +10,16 @@ import {
   inputActivityElement,
   formLocation,
   formProfile,
+  formEditAvatar,
   cardListSelector,
   placeTemplate,
   selectorsValidation,
   usernameSelector,
   profileActivitySelector,
+  avatarSelector,
   popupImageSelector,
+  popupAvatarSelector,
+  buttonEditAvatar,
 } from "../utils/constants.js";
 import { Card } from "../components/Card.js";
 import { Section } from "../components/Section.js";
@@ -46,6 +50,7 @@ api
       username: res.name,
       activity: res.about,
       _id: res._id,
+      avatar: res.avatar,
     });
   })
   .catch((err) => {
@@ -65,7 +70,11 @@ const cardList = new Section(
 );
 
 //информация о пользовалете
-const userInfo = new UserInfo({ usernameSelector, profileActivitySelector });
+const userInfo = new UserInfo({
+  usernameSelector,
+  profileActivitySelector,
+  avatarSelector,
+});
 
 const popupPhoto = new PopupWithImage(popupImageSelector);
 popupPhoto.setEventListeners();
@@ -90,6 +99,27 @@ const createNewCard = (data) => {
     handleDeleteCard: () => {
       deletedCard = card;
       popupDeleteCard.open(data._id);
+    },
+    handleLikeButton: () => {
+      if (!card.likeStatus()) {
+        api
+          .putLike(data._id)
+          .then((res) => {
+            card.changeLike(res.likes);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      } else {
+        api
+          .deleteLike(data._id)
+          .then((res) => {
+            card.changeLike(res.likes);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
     },
   });
   return card.createCard();
@@ -126,6 +156,20 @@ const popupNewLocation = new PopupWithForm(popupNewLocationSelector, (data) => {
 });
 popupNewLocation.setEventListeners();
 
+//попап редактирования аватарки
+const popupAvatar = new PopupWithForm(popupAvatarSelector, (data) => {
+  api
+    .editAvatar(data.avatarUrl)
+    .then(() => {
+      document.querySelector(avatarSelector).src = data.avatarUrl;
+      popupAvatar.close();
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
+popupAvatar.setEventListeners();
+
 //----- обработчики событий -----
 //открытие popup редактирования профиля
 buttonEditElement.addEventListener("click", () => {
@@ -140,6 +184,10 @@ buttonAddElement.addEventListener("click", () => {
   popupNewLocation.open();
 });
 
+buttonEditAvatar.addEventListener("click", () => {
+  popupAvatar.open();
+});
+
 // -------------------------------------
 
 const profileValidation = new FormValidator(selectorsValidation, formProfile);
@@ -147,8 +195,14 @@ const addLocationValidation = new FormValidator(
   selectorsValidation,
   formLocation
 );
+const editAvatarValidations = new FormValidator(
+  selectorsValidation,
+  formEditAvatar
+);
+
 profileValidation.enableValidation();
 addLocationValidation.enableValidation();
+editAvatarValidations.enableValidation();
 
 //загружаем карточки с сервера
 api

@@ -19,8 +19,13 @@
 
       <main class="content">
         <section class="profile" aria-label="профиль пользователя">
-          <div class="profile__avatar">
-            <div class="profile__avatar-overlay"></div>
+          <div class="profile__avatar-container">
+            <img
+              class="profile__avatar"
+              src=""
+              alt="аватар пользователя"
+            />
+            <button type="button" class="profile__avatar-edit-button"></button>
           </div>
           <div class="profile__info">
             <h1 class="profile__name"></h1>
@@ -82,8 +87,8 @@
         </form>
       </div>
 
-      <div class="popup popup_avatar popup_opened">
-        <form name="profile" class="form form_update-avatar" novalidate>
+      <div class="popup popup_avatar">
+        <form name="avatar" class="form form_update-avatar" novalidate>
           <h3 class="form__title">Обновить аватар</h3>
           <div class="form__field">
             <input

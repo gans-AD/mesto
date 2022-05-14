@@ -46,6 +46,28 @@ export class Api {
     );
   }
 
+  //поставить like
+  putLike(_id) {
+    return fetch(`${this._url}/cards/${_id}/likes`,
+    { method: 'PUT',
+      headers: this._headers
+     })
+    .then(
+      this._requestHandler
+    );
+  }
+
+  //убрать like
+  deleteLike(_id) {
+    return fetch(`${this._url}/cards/${_id}/likes`,
+    { method: 'DELETE',
+      headers: this._headers
+     })
+    .then(
+      this._requestHandler
+    );
+  }
+
   //загрузка информации о пользователе с сервера
   getUserInfo() {
     return fetch(`${this._url}/users/me`,
@@ -63,6 +85,20 @@ export class Api {
       body: JSON.stringify({
         name: data.username,
         about: data.activity
+      })
+     })
+    .then(
+      this._requestHandler
+    );
+  }
+
+  //обновление аватарки
+  editAvatar(link) {
+    return fetch(`${this._url}/users/me/avatar`,
+    { method: 'PATCH',
+      headers: this._headers,
+      body: JSON.stringify({
+        avatar: link
       })
      })
     .then(
