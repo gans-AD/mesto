@@ -79,7 +79,7 @@ export class Card {
   _setEventListeners() {
     //кнопка like
     this._likeButton.addEventListener("click", () => {
-      this._handleLikeButton(this);
+      this._handleLikeButton();
     });
 
     //кнопка удаления карточки

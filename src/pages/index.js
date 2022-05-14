@@ -127,21 +127,31 @@ const createNewCard = (data) => {
 
 //попап редактирования профиля
 const popupProfile = new PopupWithForm(popupEditProfile, (data) => {
+  popupProfile.renderLoading(true);
   api
     .editUserInfo(data)
-    .then(() => {
-      userInfo.setUserInfo(data);
+    .then((res) => {
+      userInfo.setUserInfo({
+        username: res.name,
+        activity: res.about,
+        _id: res._id,
+        avatar: res.avatar,
+      });
       popupProfile.close();
       profileValidation.toggleButtonState();
     })
     .catch((err) => {
       console.log(err);
+    })
+    .finally(() => {
+      popupProfile.renderLoading(false);
     });
 });
 popupProfile.setEventListeners();
 
 //попап добавления карточки
 const popupNewLocation = new PopupWithForm(popupNewLocationSelector, (data) => {
+  popupNewLocation.renderLoading(true);
   api
     .addCard(data)
     .then((res) => {
@@ -152,12 +162,16 @@ const popupNewLocation = new PopupWithForm(popupNewLocationSelector, (data) => {
     })
     .catch((err) => {
       console.log(err);
+    })
+    .finally(() => {
+      popupNewLocation.renderLoading(false);
     });
 });
 popupNewLocation.setEventListeners();
 
 //попап редактирования аватарки
 const popupAvatar = new PopupWithForm(popupAvatarSelector, (data) => {
+  popupAvatar.renderLoading(true);
   api
     .editAvatar(data.avatarUrl)
     .then(() => {
@@ -166,6 +180,8 @@ const popupAvatar = new PopupWithForm(popupAvatarSelector, (data) => {
     })
     .catch((err) => {
       console.log(err);
+    }).finally(() => {
+      popupAvatar.renderLoading(false);
     });
 });
 popupAvatar.setEventListeners();

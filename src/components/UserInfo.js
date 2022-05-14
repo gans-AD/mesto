@@ -19,7 +19,7 @@ export class UserInfo {
     return profileInfo;
   }
 
-  //вносит данные пользователя из формы
+  //изменяем данные пользователя
   setUserInfo(data) {
     this._usernameElement.textContent = data.username;
     this._profileActivityElement.textContent = data.activity;
