@@ -73,4 +73,12 @@ export class FormValidator {
       });
     });
   }
+
+  //сбрасывание ошибок с формы
+  resetValidation() {
+    this.toggleButtonState();
+    this._inputList.forEach((inputElement) => {
+      this._hideInputError(inputElement);
+    });
+  }
 }

@@ -195,6 +195,7 @@ popupAvatar.setEventListeners();
 //----- обработчики событий -----
 //открытие popup редактирования профиля
 buttonEditElement.addEventListener("click", () => {
+  profileValidation.resetValidation();
   const profileData = userInfo.getUserInfo();
   inputNameElement.value = profileData.username;
   inputActivityElement.value = profileData.activity;
@@ -203,10 +204,12 @@ buttonEditElement.addEventListener("click", () => {
 
 //отрытие popup добавления фотографии
 buttonAddElement.addEventListener("click", () => {
+  addLocationValidation.resetValidation();
   popupNewLocation.open();
 });
 
 buttonEditAvatar.addEventListener("click", () => {
+  editAvatarValidations.resetValidation();
   popupAvatar.open();
 });
 
