@@ -42,16 +42,16 @@ const api = new Api({
   },
 });
 
-//загружаем информацию о пользователе с сервера
-api
-  .getUserInfo()
-  .then((res) => {
+//загружаем информацию о пользователе с сервера и отрисовываем карточки на странице
+Promise.all([api.getUserInfo(), api.getInitialCards()])
+  .then(([userData, cards]) => {
     userInfo.setUserInfo({
-      username: res.name,
-      activity: res.about,
-      _id: res._id,
-      avatar: res.avatar,
+      username: userData.name,
+      activity: userData.about,
+      _id: userData._id,
+      avatar: userData.avatar,
     });
+    cardList.renderItems(cards); //отрисовываем карточки на странице
   })
   .catch((err) => {
     console.log(err);
@@ -174,13 +174,19 @@ const popupAvatar = new PopupWithForm(popupAvatarSelector, (data) => {
   popupAvatar.renderLoading(true);
   api
     .editAvatar(data.avatarUrl)
-    .then(() => {
-      document.querySelector(avatarSelector).src = data.avatarUrl;
+    .then((res) => {
+      userInfo.setUserInfo({
+        username: res.name,
+        activity: res.about,
+        _id: res._id,
+        avatar: res.avatar,
+      });
       popupAvatar.close();
     })
     .catch((err) => {
       console.log(err);
-    }).finally(() => {
+    })
+    .finally(() => {
       popupAvatar.renderLoading(false);
     });
 });
@@ -219,13 +225,3 @@ const editAvatarValidations = new FormValidator(
 profileValidation.enableValidation();
 addLocationValidation.enableValidation();
 editAvatarValidations.enableValidation();
-
-//загружаем карточки с сервера
-api
-  .getInitialCards()
-  .then((res) => {
-    cardList.renderItems(res); //отрисовываем карточки на странице
-  })
-  .catch((err) => {
-    console.log(err);
-  });

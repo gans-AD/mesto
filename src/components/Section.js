@@ -6,7 +6,7 @@ export  class Section {
   }
 
   renderItems(cardsArr = this._initialArray) {
-    cardsArr.forEach((item) => {
+    cardsArr.reverse().forEach((item) => {
       this._renderer(item);
     });
   }
